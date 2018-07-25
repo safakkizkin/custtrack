@@ -1,0 +1,32 @@
+﻿@using CustTrack.Models.EntityFramework
+@model List<T_Employee>
+@{
+    ViewBag.Title = "Employee";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+}
+
+<h2>Çalışanlar</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Adı</th>
+            <th>Soyadı</th>
+            <th>Telefon Numarası</th>
+            <th>Yetki derecesi</th>
+            <th>Bölümü</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var employee in Model)
+        {
+        <tr>
+            <td>@employee.employee_name</td>
+            <td>@employee.employee_surname</td>
+            <td>@employee.employee_phone</td>
+            <td>@employee.employee_authority_id</td>
+            <td>@employee.department_id</td>
+        </tr>
+        }
+    </tbody>
+</table>
+

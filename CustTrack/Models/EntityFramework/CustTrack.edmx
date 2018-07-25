@@ -1,0 +1,340 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SalesManContextModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="T_Admin">
+          <Key>
+            <PropertyRef Name="admin_id" />
+          </Key>
+          <Property Name="admin_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="admin_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="admin_password" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Appointment">
+          <Key>
+            <PropertyRef Name="appointment_id" />
+          </Key>
+          <Property Name="appointment_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="customer_id" Type="int" Nullable="false" />
+          <Property Name="employee_id" Type="int" Nullable="false" />
+          <Property Name="appointment_type_id" Type="int" Nullable="false" />
+          <Property Name="appointment_start_date" Type="datetime" Nullable="false" />
+          <Property Name="appointment_end_date" Type="datetime" Nullable="false" />
+          <Property Name="appointment_color" Type="binary" MaxLength="50" Nullable="false" />
+          <Property Name="appointment_before_note" Type="nvarchar(max)" />
+          <Property Name="is_done" Type="bit" Nullable="false" />
+          <Property Name="appointment_after_note" Type="nvarchar(max)" />
+          <Property Name="is_reappointment" Type="bit" Nullable="false" />
+          <Property Name="is_offered" Type="bit" Nullable="false" />
+          <Property Name="is_ordered" Type="bit" Nullable="false" />
+          <Property Name="is_paid" Type="bit" Nullable="false" />
+          <Property Name="is_technical_problem" Type="bit" Nullable="false" />
+          <Property Name="is_additional_service" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SalesManContext.dbo.T_AppointmentType' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="T_AppointmentType">
+          <Key>
+            <PropertyRef Name="appointment_type_id" />
+            <PropertyRef Name="appointment_type_name" />
+          </Key>
+          <Property Name="appointment_type_id" Type="int" Nullable="false" />
+          <Property Name="appointment_type_name" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SalesManContext.dbo.T_Authority' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="T_Authority">
+          <Key>
+            <PropertyRef Name="authority_id" />
+            <PropertyRef Name="authority_name" />
+          </Key>
+          <Property Name="authority_id" Type="int" Nullable="false" />
+          <Property Name="authority_name" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Customer">
+          <Key>
+            <PropertyRef Name="customer_id" />
+          </Key>
+          <Property Name="customer_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="customer_authorized_1" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="customer_authorized_2" Type="nvarchar" MaxLength="50" />
+          <Property Name="customer_authorized_3" Type="nvarchar" MaxLength="50" />
+          <Property Name="customer_sector" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="customer_area" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="customer_phone" Type="int" Nullable="false" />
+          <Property Name="customer_mail" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="customer_company_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="customer_province" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="customer_district" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="customer_post_code" Type="int" Nullable="false" />
+          <Property Name="customer_tax_number" Type="int" Nullable="false" />
+          <Property Name="customer_tax_administration" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="customer_fax" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Department">
+          <Key>
+            <PropertyRef Name="department_id" />
+          </Key>
+          <Property Name="department_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="department_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Employee">
+          <Key>
+            <PropertyRef Name="employee_id" />
+          </Key>
+          <Property Name="employee_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="department_id" Type="int" Nullable="false" />
+          <Property Name="employee_authority_id" Type="int" Nullable="false" />
+          <Property Name="employee_username" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="employee_name" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="employee_surname" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="employee_phone" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="employee_mail" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="employee_photo" Type="image" />
+          <Property Name="employee_password" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="SalesManContextModelStoreContainer">
+          <EntitySet Name="T_Admin" EntityType="Self.T_Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Appointment" EntityType="Self.T_Appointment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Customer" EntityType="Self.T_Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Department" EntityType="Self.T_Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Employee" EntityType="Self.T_Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_AppointmentType" EntityType="Self.T_AppointmentType" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [T_AppointmentType].[appointment_type_id] AS [appointment_type_id], 
+    [T_AppointmentType].[appointment_type_name] AS [appointment_type_name]
+    FROM [dbo].[T_AppointmentType] AS [T_AppointmentType]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="T_Authority" EntityType="Self.T_Authority" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [T_Authority].[authority_id] AS [authority_id], 
+    [T_Authority].[authority_name] AS [authority_name]
+    FROM [dbo].[T_Authority] AS [T_Authority]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SalesManContextModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="T_Admin">
+          <Key>
+            <PropertyRef Name="admin_id" />
+          </Key>
+          <Property Name="admin_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="admin_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="admin_password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Appointment">
+          <Key>
+            <PropertyRef Name="appointment_id" />
+          </Key>
+          <Property Name="appointment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="customer_id" Type="Int32" Nullable="false" />
+          <Property Name="employee_id" Type="Int32" Nullable="false" />
+          <Property Name="appointment_type_id" Type="Int32" Nullable="false" />
+          <Property Name="appointment_start_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="appointment_end_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="appointment_color" Type="Binary" MaxLength="50" FixedLength="true" Nullable="false" />
+          <Property Name="appointment_before_note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="is_done" Type="Boolean" Nullable="false" />
+          <Property Name="appointment_after_note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="is_reappointment" Type="Boolean" Nullable="false" />
+          <Property Name="is_offered" Type="Boolean" Nullable="false" />
+          <Property Name="is_ordered" Type="Boolean" Nullable="false" />
+          <Property Name="is_paid" Type="Boolean" Nullable="false" />
+          <Property Name="is_technical_problem" Type="Boolean" Nullable="false" />
+          <Property Name="is_additional_service" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Customer">
+          <Key>
+            <PropertyRef Name="customer_id" />
+          </Key>
+          <Property Name="customer_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="customer_authorized_1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="customer_authorized_2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="customer_authorized_3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="customer_sector" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="customer_area" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="customer_phone" Type="Int32" Nullable="false" />
+          <Property Name="customer_mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="customer_company_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="customer_province" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="customer_district" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="customer_post_code" Type="Int32" Nullable="false" />
+          <Property Name="customer_tax_number" Type="Int32" Nullable="false" />
+          <Property Name="customer_tax_administration" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="customer_fax" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Department">
+          <Key>
+            <PropertyRef Name="department_id" />
+          </Key>
+          <Property Name="department_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="department_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Employee">
+          <Key>
+            <PropertyRef Name="employee_id" />
+          </Key>
+          <Property Name="employee_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="department_id" Type="Int32" Nullable="false" />
+          <Property Name="employee_authority_id" Type="Int32" Nullable="false" />
+          <Property Name="employee_username" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="employee_name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="employee_surname" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="employee_phone" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="employee_mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="employee_photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="employee_password" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_AppointmentType">
+          <Key>
+            <PropertyRef Name="appointment_type_id" />
+            <PropertyRef Name="appointment_type_name" />
+          </Key>
+          <Property Name="appointment_type_id" Type="Int32" Nullable="false" />
+          <Property Name="appointment_type_name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Authority">
+          <Key>
+            <PropertyRef Name="authority_id" />
+            <PropertyRef Name="authority_name" />
+          </Key>
+          <Property Name="authority_id" Type="Int32" Nullable="false" />
+          <Property Name="authority_name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="SalesManContextEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="T_Admin" EntityType="Self.T_Admin" />
+          <EntitySet Name="T_Appointment" EntityType="Self.T_Appointment" />
+          <EntitySet Name="T_Customer" EntityType="Self.T_Customer" />
+          <EntitySet Name="T_Department" EntityType="Self.T_Department" />
+          <EntitySet Name="T_Employee" EntityType="Self.T_Employee" />
+          <EntitySet Name="T_AppointmentType" EntityType="Self.T_AppointmentType" />
+          <EntitySet Name="T_Authority" EntityType="Self.T_Authority" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SalesManContextModelStoreContainer" CdmEntityContainer="SalesManContextEntities">
+          <EntitySetMapping Name="T_Admin">
+            <EntityTypeMapping TypeName="SalesManContextModel.T_Admin">
+              <MappingFragment StoreEntitySet="T_Admin">
+                <ScalarProperty Name="admin_id" ColumnName="admin_id" />
+                <ScalarProperty Name="admin_name" ColumnName="admin_name" />
+                <ScalarProperty Name="admin_password" ColumnName="admin_password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Appointment">
+            <EntityTypeMapping TypeName="SalesManContextModel.T_Appointment">
+              <MappingFragment StoreEntitySet="T_Appointment">
+                <ScalarProperty Name="appointment_id" ColumnName="appointment_id" />
+                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="appointment_type_id" ColumnName="appointment_type_id" />
+                <ScalarProperty Name="appointment_start_date" ColumnName="appointment_start_date" />
+                <ScalarProperty Name="appointment_end_date" ColumnName="appointment_end_date" />
+                <ScalarProperty Name="appointment_color" ColumnName="appointment_color" />
+                <ScalarProperty Name="appointment_before_note" ColumnName="appointment_before_note" />
+                <ScalarProperty Name="is_done" ColumnName="is_done" />
+                <ScalarProperty Name="appointment_after_note" ColumnName="appointment_after_note" />
+                <ScalarProperty Name="is_reappointment" ColumnName="is_reappointment" />
+                <ScalarProperty Name="is_offered" ColumnName="is_offered" />
+                <ScalarProperty Name="is_ordered" ColumnName="is_ordered" />
+                <ScalarProperty Name="is_paid" ColumnName="is_paid" />
+                <ScalarProperty Name="is_technical_problem" ColumnName="is_technical_problem" />
+                <ScalarProperty Name="is_additional_service" ColumnName="is_additional_service" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Customer">
+            <EntityTypeMapping TypeName="SalesManContextModel.T_Customer">
+              <MappingFragment StoreEntitySet="T_Customer">
+                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+                <ScalarProperty Name="customer_authorized_1" ColumnName="customer_authorized_1" />
+                <ScalarProperty Name="customer_authorized_2" ColumnName="customer_authorized_2" />
+                <ScalarProperty Name="customer_authorized_3" ColumnName="customer_authorized_3" />
+                <ScalarProperty Name="customer_sector" ColumnName="customer_sector" />
+                <ScalarProperty Name="customer_area" ColumnName="customer_area" />
+                <ScalarProperty Name="customer_phone" ColumnName="customer_phone" />
+                <ScalarProperty Name="customer_mail" ColumnName="customer_mail" />
+                <ScalarProperty Name="customer_company_name" ColumnName="customer_company_name" />
+                <ScalarProperty Name="customer_province" ColumnName="customer_province" />
+                <ScalarProperty Name="customer_district" ColumnName="customer_district" />
+                <ScalarProperty Name="customer_post_code" ColumnName="customer_post_code" />
+                <ScalarProperty Name="customer_tax_number" ColumnName="customer_tax_number" />
+                <ScalarProperty Name="customer_tax_administration" ColumnName="customer_tax_administration" />
+                <ScalarProperty Name="customer_fax" ColumnName="customer_fax" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Department">
+            <EntityTypeMapping TypeName="SalesManContextModel.T_Department">
+              <MappingFragment StoreEntitySet="T_Department">
+                <ScalarProperty Name="department_id" ColumnName="department_id" />
+                <ScalarProperty Name="department_name" ColumnName="department_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Employee">
+            <EntityTypeMapping TypeName="SalesManContextModel.T_Employee">
+              <MappingFragment StoreEntitySet="T_Employee">
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="department_id" ColumnName="department_id" />
+                <ScalarProperty Name="employee_authority_id" ColumnName="employee_authority_id" />
+                <ScalarProperty Name="employee_username" ColumnName="employee_username" />
+                <ScalarProperty Name="employee_name" ColumnName="employee_name" />
+                <ScalarProperty Name="employee_surname" ColumnName="employee_surname" />
+                <ScalarProperty Name="employee_phone" ColumnName="employee_phone" />
+                <ScalarProperty Name="employee_mail" ColumnName="employee_mail" />
+                <ScalarProperty Name="employee_photo" ColumnName="employee_photo" />
+                <ScalarProperty Name="employee_password" ColumnName="employee_password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_AppointmentType">
+            <EntityTypeMapping TypeName="SalesManContextModel.T_AppointmentType">
+              <MappingFragment StoreEntitySet="T_AppointmentType">
+                <ScalarProperty Name="appointment_type_id" ColumnName="appointment_type_id" />
+                <ScalarProperty Name="appointment_type_name" ColumnName="appointment_type_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Authority">
+            <EntityTypeMapping TypeName="SalesManContextModel.T_Authority">
+              <MappingFragment StoreEntitySet="T_Authority">
+                <ScalarProperty Name="authority_id" ColumnName="authority_id" />
+                <ScalarProperty Name="authority_name" ColumnName="authority_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

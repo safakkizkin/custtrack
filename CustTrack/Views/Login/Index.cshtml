@@ -1,0 +1,29 @@
+﻿@model CustTrack.Models.EntityFramework.T_Employee
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        @ViewBag.Mesaj
+        @using (Html.BeginForm("Index","Login",FormMethod.Post))
+        {
+            <div class="form-group">
+                @Html.TextBoxFor(m => m.employee_username, new { @class = "form-control", placeholder = "Kullanıcı Adı" })
+            </div>
+            <div class="form-group">
+                @Html.PasswordFor(m => m.employee_password, new { @class = "form-control", placeholder = "Şifre" })
+            </div>
+            <button type="submit" class="btn btn-block btn-primary"> Giriş </button>
+        }
+    </div>
+</body>
+</html>
