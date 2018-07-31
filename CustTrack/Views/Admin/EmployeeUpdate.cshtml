@@ -1,0 +1,30 @@
+﻿@model CustTrack.Models.UpdateEmployeeModel
+
+@{
+    ViewBag.Title = "EmployeeUpdate";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+}
+
+<h4 align="center">Güncelleme: <b>@Html.DisplayFor(model => model.Employee.employee_name)</b></h4>
+<div align="center">
+    <hr />
+    @using (Html.BeginForm("EmployeeUpdate", "Admin", FormMethod.Post))
+    {
+        <div class="col-lg-12">
+            <div class="form-group col-lg-6">
+                @Html.TextBoxFor(m => m.Employee.employee_name, new { @class = "form-control", placeholder = "Ad" })
+                @Html.TextBoxFor(m => m.Employee.employee_surname, new { @class = "form-control", placeholder = "Soyad" })
+                @Html.TextBoxFor(m => m.Employee.employee_username, new { @class = "form-control", placeholder = "Kullanıcı Adı" })
+            </div>
+            <div class="form-group col-lg-6">
+                @Html.TextBoxFor(m => m.Employee.employee_mail, new { @class = "form-control", placeholder = "Mail adresi" })
+                @Html.TextBoxFor(m => m.Employee.employee_phone, new { @class = "form-control", placeholder = "Telefon" })
+            </div>
+        </div>
+        <hr />
+        <p>
+            <button type="submit" class="btn"> Kaydet </button>
+            <button type="reset" class="btn"> Temizle</button>
+        </p>
+    }
+</div>

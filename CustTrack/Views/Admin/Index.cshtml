@@ -1,8 +1,26 @@
-﻿@model IEnumerable<CustTrack.Models.EntityFramework.T_Employee>
-
+﻿@using CustTrack.Models.EntityFramework;
+@model List<T_Department>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_adminLayout.cshtml";
 }
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <td align="center"><b>Bölüm</b></td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var departman in Model)
+            {
+                <tr>
+                    <td align="center">@departman.department_name</td>
+                    <td align="right"><a class="btn btn-warning" href="/Admin/Update/@departman.department_id">Düzenle</a></td>
+                    <td align="left"><a class="btn btn-danger" href="/Admin/Delete/@departman.department_id">Sil</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
-<h2>Index</h2>

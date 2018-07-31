@@ -34,22 +34,16 @@
           <Property Name="is_technical_problem" Type="bit" Nullable="false" />
           <Property Name="is_additional_service" Type="bit" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'SalesManContext.dbo.T_AppointmentType' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="T_AppointmentType">
           <Key>
             <PropertyRef Name="appointment_type_id" />
-            <PropertyRef Name="appointment_type_name" />
           </Key>
           <Property Name="appointment_type_id" Type="int" Nullable="false" />
           <Property Name="appointment_type_name" Type="nvarchar" MaxLength="30" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'SalesManContext.dbo.T_Authority' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="T_Authority">
           <Key>
             <PropertyRef Name="authority_id" />
-            <PropertyRef Name="authority_name" />
           </Key>
           <Property Name="authority_id" Type="int" Nullable="false" />
           <Property Name="authority_name" Type="nvarchar" MaxLength="20" Nullable="false" />
@@ -99,21 +93,11 @@ warning 6002: The table/view 'SalesManContext.dbo.T_Authority' does not have a p
         <EntityContainer Name="SalesManContextModelStoreContainer">
           <EntitySet Name="T_Admin" EntityType="Self.T_Admin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_Appointment" EntityType="Self.T_Appointment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_AppointmentType" EntityType="Self.T_AppointmentType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Authority" EntityType="Self.T_Authority" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_Customer" EntityType="Self.T_Customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_Department" EntityType="Self.T_Department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_Employee" EntityType="Self.T_Employee" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="T_AppointmentType" EntityType="Self.T_AppointmentType" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [T_AppointmentType].[appointment_type_id] AS [appointment_type_id], 
-    [T_AppointmentType].[appointment_type_name] AS [appointment_type_name]
-    FROM [dbo].[T_AppointmentType] AS [T_AppointmentType]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="T_Authority" EntityType="Self.T_Authority" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [T_Authority].[authority_id] AS [authority_id], 
-    [T_Authority].[authority_name] AS [authority_name]
-    FROM [dbo].[T_Authority] AS [T_Authority]</DefiningQuery>
-          </EntitySet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -148,6 +132,20 @@ warning 6002: The table/view 'SalesManContext.dbo.T_Authority' does not have a p
           <Property Name="is_paid" Type="Boolean" Nullable="false" />
           <Property Name="is_technical_problem" Type="Boolean" Nullable="false" />
           <Property Name="is_additional_service" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_AppointmentType">
+          <Key>
+            <PropertyRef Name="appointment_type_id" />
+          </Key>
+          <Property Name="appointment_type_id" Type="Int32" Nullable="false" />
+          <Property Name="appointment_type_name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Authority">
+          <Key>
+            <PropertyRef Name="authority_id" />
+          </Key>
+          <Property Name="authority_id" Type="Int32" Nullable="false" />
+          <Property Name="authority_name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="T_Customer">
           <Key>
@@ -191,30 +189,14 @@ warning 6002: The table/view 'SalesManContext.dbo.T_Authority' does not have a p
           <Property Name="employee_photo" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="employee_password" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
-        <EntityType Name="T_AppointmentType">
-          <Key>
-            <PropertyRef Name="appointment_type_id" />
-            <PropertyRef Name="appointment_type_name" />
-          </Key>
-          <Property Name="appointment_type_id" Type="Int32" Nullable="false" />
-          <Property Name="appointment_type_name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
-        <EntityType Name="T_Authority">
-          <Key>
-            <PropertyRef Name="authority_id" />
-            <PropertyRef Name="authority_name" />
-          </Key>
-          <Property Name="authority_id" Type="Int32" Nullable="false" />
-          <Property Name="authority_name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
         <EntityContainer Name="SalesManContextEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="T_Admin" EntityType="Self.T_Admin" />
           <EntitySet Name="T_Appointment" EntityType="Self.T_Appointment" />
+          <EntitySet Name="T_AppointmentType" EntityType="Self.T_AppointmentType" />
+          <EntitySet Name="T_Authority" EntityType="Self.T_Authority" />
           <EntitySet Name="T_Customer" EntityType="Self.T_Customer" />
           <EntitySet Name="T_Department" EntityType="Self.T_Department" />
           <EntitySet Name="T_Employee" EntityType="Self.T_Employee" />
-          <EntitySet Name="T_AppointmentType" EntityType="Self.T_AppointmentType" />
-          <EntitySet Name="T_Authority" EntityType="Self.T_Authority" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -250,6 +232,22 @@ warning 6002: The table/view 'SalesManContext.dbo.T_Authority' does not have a p
                 <ScalarProperty Name="is_paid" ColumnName="is_paid" />
                 <ScalarProperty Name="is_technical_problem" ColumnName="is_technical_problem" />
                 <ScalarProperty Name="is_additional_service" ColumnName="is_additional_service" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_AppointmentType">
+            <EntityTypeMapping TypeName="SalesManContextModel.T_AppointmentType">
+              <MappingFragment StoreEntitySet="T_AppointmentType">
+                <ScalarProperty Name="appointment_type_id" ColumnName="appointment_type_id" />
+                <ScalarProperty Name="appointment_type_name" ColumnName="appointment_type_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Authority">
+            <EntityTypeMapping TypeName="SalesManContextModel.T_Authority">
+              <MappingFragment StoreEntitySet="T_Authority">
+                <ScalarProperty Name="authority_id" ColumnName="authority_id" />
+                <ScalarProperty Name="authority_name" ColumnName="authority_name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -298,22 +296,6 @@ warning 6002: The table/view 'SalesManContext.dbo.T_Authority' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="T_AppointmentType">
-            <EntityTypeMapping TypeName="SalesManContextModel.T_AppointmentType">
-              <MappingFragment StoreEntitySet="T_AppointmentType">
-                <ScalarProperty Name="appointment_type_id" ColumnName="appointment_type_id" />
-                <ScalarProperty Name="appointment_type_name" ColumnName="appointment_type_name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="T_Authority">
-            <EntityTypeMapping TypeName="SalesManContextModel.T_Authority">
-              <MappingFragment StoreEntitySet="T_Authority">
-                <ScalarProperty Name="authority_id" ColumnName="authority_id" />
-                <ScalarProperty Name="authority_name" ColumnName="authority_name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -329,7 +311,7 @@ warning 6002: The table/view 'SalesManContext.dbo.T_Authority' does not have a p
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="false" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>

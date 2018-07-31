@@ -17,14 +17,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("CustTrack", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("CustTrack", "Index", "Admin", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Ana Sayfa", "Index", "Admin")</li>
-                    <li>@Html.ActionLink("Bölümler", "Departmant", "Admin")</li>
+                    <li>@Html.ActionLink("Bölümler", "Index", "Admin")</li>
                     <li>@Html.ActionLink("Çalışanlar", "Employee", "Admin")</li>
-                    <li><a href="/Login/Logout">Çıkış yap</a></li>
                 </ul>
             </div>
         </div>

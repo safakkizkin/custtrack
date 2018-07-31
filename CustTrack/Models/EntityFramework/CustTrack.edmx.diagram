@@ -4,14 +4,14 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d662104a7efd4af2a3adc7be806d7749" Name="Diagram1">
+      <Diagram DiagramId="1181fe95822c41e3bf0f06b848f6a438" Name="Diagram1">
         <EntityTypeShape EntityType="SalesManContextModel.T_Admin" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SalesManContextModel.T_Appointment" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SalesManContextModel.T_Customer" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SalesManContextModel.T_Department" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SalesManContextModel.T_Employee" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SalesManContextModel.T_AppointmentType" Width="1.5" PointX="4.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SalesManContextModel.T_Authority" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SalesManContextModel.T_Appointment" Width="1.5" PointX="4.625" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SalesManContextModel.T_AppointmentType" Width="1.5" PointX="2.625" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SalesManContextModel.T_Authority" Width="1.5" PointX="6.625" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SalesManContextModel.T_Customer" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SalesManContextModel.T_Department" Width="1.5" PointX="6.625" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SalesManContextModel.T_Employee" Width="1.5" PointX="2.625" PointY="2.25" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
