@@ -1,0 +1,41 @@
+﻿@model CustTrack.Models.EmployeesModel
+@{
+    ViewBag.Title = "Employee";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+}
+
+@ViewBag.Mesaj
+<table class="table">
+    <thead>
+        <tr>
+            <th align="center">Kullanıcı Adı</th>
+            <th align="center">Adı</th>
+            <th align="center">Soyadı</th>
+            <th align="center">Telefon Numarası</th>
+            <th align="center">Mail</th>
+            <th align="center">Yetki derecesi</th>
+            <th align="center">Bölümü</th>
+            <th align="center">Güncelle</th>
+            <th align="center">Sil</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var employee in Model.Employees)
+        {
+            <tr>
+                <td align="center">@employee.employee_username</td>
+                <td align="center">@employee.employee_name</td>
+                <td align="center">@employee.employee_surname</td>
+                <td align="center">@employee.employee_phone</td>
+                <td align="center">@employee.employee_mail</td>
+                <td align="center">@Model.Authorities.First(x => x.authority_id == employee.employee_authority_id).authority_name</td>
+                <td align="center">@Model.Departmans.First(x => x.department_id == employee.department_id).department_name</td>
+                <td align="center"><a class="btn btn-warning" href="/Admin/Employee/@employee.employee_id">Guncelle</a></td>
+                <td align="center"><a class="btn btn-danger" href="/Admin/RemoveEmployee/@employee.employee_id">Sil</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div align="right" class="col-lg-12">
+    <a class="btn btn-secondary" href="/Admin/Employee/0"> Çalışan Ekle</a>
+</div>

@@ -4,11 +4,18 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_adminLayout.cshtml";
 }
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+</head>
 <div class="container">
     <table class="table">
         <thead>
             <tr>
                 <td align="center"><b>Bölüm</b></td>
+                <td align="center"><b>Düzenle</b></td>
+                <td align="center"><b>Sil</b></td>
             </tr>
         </thead>
         <tbody>
@@ -16,11 +23,14 @@
             {
                 <tr>
                     <td align="center">@departman.department_name</td>
-                    <td align="right"><a class="btn btn-warning" href="/Admin/Update/@departman.department_id">Düzenle</a></td>
-                    <td align="left"><a class="btn btn-danger" href="/Admin/Delete/@departman.department_id">Sil</a></td>
+                    <td align="center"><a class="btn btn-warning" href="/Admin/Departmant/@departman.department_id">Düzenle</a></td>
+                    <td align="center"><a class="btn btn-danger" href="/Admin/RemoveDepartmant/@departman.department_id">Sil</a></td>
                 </tr>
             }
         </tbody>
     </table>
+    <div align="right" class="col-lg-12">
+        <a class="btn btn-secondary" href="/Admin/Departmant/0"> Bölüm Ekle</a>
+    </div>
 </div>
 

@@ -34,14 +34,12 @@ namespace CustTrack.Controllers
                     case 1:
                         FormsAuthentication.SetAuthCookie(user.employee_username, false);
                         return RedirectToAction("Index", "Admin");
-                        break;
                     case 2:
                         FormsAuthentication.SetAuthCookie(user.employee_username, false);
                         return RedirectToAction("Index", "Home");
-                        break;
                     default:
+                        ViewBag.Mesaj = "Bu yetki için geçerli sayfa bulunamadı";
                         return View();
-                        break;
                 }
             }
         }
