@@ -1,47 +1,38 @@
 ﻿@model CustTrack.Models.UpdateEmployeeModel
 
 @{
-    ViewBag.Title = "Güncelle";
+    ViewBag.Title = "Bilgi";
     Layout = "~/Views/Shared/_adminLayout.cshtml";
 }
-
-<h4 align="center">Güncelleme: @Model.Employee.employee_name <b>@Model.Employee.employee_surname</b></h4>
+<br />
+<h4 align="center">Bilgi: <b> @Model._Employee.employee_name @Model._Employee.employee_surname</b></h4>
 <div align="center">
     <hr />
     @using (Html.BeginForm("Employee", "Admin", FormMethod.Post))
     {
-        @Html.HiddenFor(m => m.Employee.employee_id)
+        @Html.HiddenFor(m => m._Employee.employee_id)
         <div class="col-lg-12">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKM9BUy0eVYn8_C3sg0J40Oa5MlWpFbS83fleauNdF4W5HQQJQ" class="img-circle" alt="Cinque Terre">
         </div>
         <hr />
         <div class="col-lg-12">
             <div class="form-group col-lg-6">
-                <p>@Html.TextBoxFor(m => m.Employee.employee_name, new { @class = "form-control", placeholder = "Ad" })</p>
-                <p>@Html.TextBoxFor(m => m.Employee.employee_surname, new { @class = "form-control", placeholder = "Soyad" })</p>
-                <p>@Html.TextBoxFor(m => m.Employee.employee_username, new { @class = "form-control", placeholder = "Kullanıcı Adı" })</p>
+                <p>@Html.TextBoxFor(m => m._Employee.employee_name, new { @class = "form-control", placeholder = "Ad" })</p>
+                <p>@Html.TextBoxFor(m => m._Employee.employee_surname, new { @class = "form-control", placeholder = "Soyad" })</p>
+                <p>@Html.TextBoxFor(m => m._Employee.employee_username, new { @class = "form-control", placeholder = "Kullanıcı Adı" })</p>
+                <p>@Html.PasswordFor(m => m._Employee.employee_password, new { @class = "form-control", placeholder = "Şifre" })</p>
             </div>
             <div class="form-group col-lg-6">
-                <p>@Html.TextBoxFor(m => m.Employee.employee_mail, new { @class = "form-control", placeholder = "Mail adresi" })</p>
-                <p>@Html.TextBoxFor(m => m.Employee.employee_phone, new { @class = "form-control", placeholder = "Telefon" })</p>
-                <select class="form-group" id="selected_departmant">
-                    @foreach (var dep in Model.Departments)
-                    {
-                        if (dep.department_id == Model.Employee.department_id)
-                        {
-                            <option selected="selected" id="@dep.department_id">@dep.department_name</option>
-                        }
-                        else
-                        {
-                            <option id="@dep.department_id">@dep.department_name</option>
-                        }
-                    }
-                </select>
+                <p>@Html.TextBoxFor(m => m._Employee.employee_mail, new { @class = "form-control", placeholder = "Mail adresi" })</p>
+                <p>@Html.TextBoxFor(m => m._Employee.employee_phone, new { @class = "form-control", placeholder = "Telefon" })</p>
+                <p>@Html.DropDownList("DropDownListDepartmants", new SelectList(Model._Departments.Where(x => x.department_id != Model._Employee.department_id), "department_id", "department_name"), Model._Department.department_name, new { @class = "form-control" })</p>
+                <p>@Html.DropDownList("DropDownListAuthorities", new SelectList(Model._Authorities.Where(x => x.authority_id != Model._Employee.employee_authority_id), "authority_id", "authority_name"), Model._Authority.authority_name)</p>
             </div>
         </div>
         <p>
-            <button type="submit" class="btn"> Kaydet </button>
-            <button type="reset" class="btn"> Temizle</button>
+            <button type="submit" class="btn btn-warning"> Güncelle </button>
+            <button type="reset" class="btn btn-secondary"> Temizle</button>
+            <button class="btn btn-danger" href="/Admin/RemoveEmployee/@Model._Employee.employee_id">Sil</button>
         </p>
     }
 </div>

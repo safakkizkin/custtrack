@@ -47,20 +47,26 @@ namespace CustTrack.Controllers
             {
                 var addviewmodel = new UpdateEmployeeModel
                 {
-                    Deparment = new T_Department
+                    _Department = new T_Department
                     {
                         department_id = 0,
                         department_name = "Bir Departman Seçiniz"
                     },
-                    Departments = db.T_Department
+                    _Departments = db.T_Department
                                     .ToList(),
-                    Employee = new T_Employee
+                    _Employee = new T_Employee
                     {
                         employee_id = 0
                     },
-                    Managers = db.T_Employee
+                    _Managers = db.T_Employee
                                  .Where(m => m.employee_authority_id == 2)
-                                 .ToList()
+                                 .ToList(),
+                    _Authority = new T_Authority
+                    {
+                        authority_id = 0,
+                        authority_name = "Yetki Düzeyi"
+                    },
+                    _Authorities = db.T_Authority.ToList()
                 };
                 return View(addviewmodel);
             }
@@ -72,17 +78,20 @@ namespace CustTrack.Controllers
             {
                 var updateviewmodel = new UpdateEmployeeModel
                 {
-                    Deparment = db.T_Department
+                    _Department = db.T_Department
                                   .Find(employee.department_id),
-                    Departments = db.T_Department
+                    _Departments = db.T_Department
                                     .OrderBy(m => m.department_name)
                                     .ToList(),
-                    Employee = employee,
-                    Managers = db.T_Employee
+                    _Employee = employee,
+                    _Managers = db.T_Employee
                                  .Where(m => m.employee_authority_id == 2)
                                  .OrderBy(m => m.employee_name)
                                  .ThenBy(m => m.employee_surname)
-                                 .ToList()
+                                 .ToList(),
+                    _Authority = db.T_Authority
+                                    .Find(employee.employee_authority_id),
+                    _Authorities = db.T_Authority.ToList()
                 };
                 return View(updateviewmodel);
             }
@@ -174,35 +183,36 @@ namespace CustTrack.Controllers
         #region Employees' Process
 
         [HttpPost]
-        public ActionResult Employee(UpdateEmployeeModel updateemployeemodel)
+        public ActionResult Employee(UpdateEmployeeModel updateemployeemodel, FormCollection form)
         {
-            
-            if (updateemployeemodel.Employee.employee_id == 0)
+            if (updateemployeemodel._Employee.employee_id == 0)
             {
+                updateemployeemodel._Employee.department_id = int.Parse(Request.Form["DropDownListDepartmants"].ToString());
+                updateemployeemodel._Employee.employee_authority_id = int.Parse(Request.Form["DropDownListAuthorities"].ToString());
                 db.T_Employee
-                    .Add(updateemployeemodel.Employee);
+                    .Add(updateemployeemodel._Employee);
             }
             else
             {
                 var emp_update = db.T_Employee
-                                    .Find(updateemployeemodel.Employee.employee_id);
+                                    .Find(updateemployeemodel._Employee.employee_id);
 
                 if (emp_update == null)
                 {
                     return HttpNotFound();
                 }
-                emp_update.department_id = updateemployeemodel.Employee.department_id;
-                emp_update.employee_authority_id = updateemployeemodel.Employee.employee_authority_id;
-                emp_update.employee_mail = updateemployeemodel.Employee.employee_mail;
-                emp_update.employee_name = updateemployeemodel.Employee.employee_name;
-                emp_update.employee_phone = updateemployeemodel.Employee.employee_phone;
-                emp_update.employee_surname = updateemployeemodel.Employee.employee_surname;
-                emp_update.employee_username = updateemployeemodel.Employee.employee_username;
+                var dp_id = emp_update.department_id;
+                var ea_id = emp_update.employee_authority_id;
+                emp_update = updateemployeemodel._Employee;
+                string selected_auth = form["DropDownListAuthorities"].ToString();
+                
+                emp_update.department_id = form["DropDownListDepartmants"].ToString() == "" ? dp_id : int.Parse(form["DropDownListDepartmants"]);
+                emp_update.employee_authority_id = form["DropDownListAuthorities"].ToString() == "" ? ea_id : int.Parse(form["DropDownListAuthorities"]);
             }
 
             db.SaveChanges();
 
-            return RedirectToAction("Employee", "Admin");
+            return RedirectToAction("Employees", "Admin");
         }
 
         // Removing

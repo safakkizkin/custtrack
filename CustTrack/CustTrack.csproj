@@ -210,6 +210,9 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Models\EntityFramework\CustTrack.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>CustTrack.edmx</DependentUpon>
@@ -219,16 +222,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>CustTrack.edmx</DependentUpon>
       <LastGenOutput>CustTrack.cs</LastGenOutput>
-    </Content>
-    <Content Include="ApplicationInsights.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <EntityDeploy Include="Models\EntityFramework\CustTrack.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>CustTrack.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\EntityFramework\CustTrack.edmx.diagram">
-      <DependentUpon>CustTrack.edmx</DependentUpon>
     </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -252,6 +245,13 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
+    <EntityDeploy Include="Models\EntityFramework\CustTrack.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CustTrack.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\EntityFramework\CustTrack.edmx.diagram">
+      <DependentUpon>CustTrack.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -305,7 +305,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Guncelle\" />
     <Folder Include="Views\Manager\" />
     <Folder Include="Views\SalesMan\" />
     <Folder Include="Views\Security\" />

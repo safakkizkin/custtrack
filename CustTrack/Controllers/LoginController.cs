@@ -8,7 +8,7 @@ namespace CustTrack.Controllers
     public class LoginController : Controller
     {
         SalesManContextEntities db = new SalesManContextEntities();
-    
+        public T_Employee user;
         // GET: Security
         [AllowAnonymous]
         public ActionResult Index()
@@ -20,7 +20,7 @@ namespace CustTrack.Controllers
         [AllowAnonymous]
         public ActionResult Index(T_Employee employee)
         {
-            var user = db.T_Employee.FirstOrDefault(x => x.employee_username.Equals(employee.employee_username) && x.employee_password.Equals(employee.employee_password));
+            user = db.T_Employee.FirstOrDefault(x => x.employee_username.Equals(employee.employee_username) && x.employee_password.Equals(employee.employee_password));
             
             if (user == null)
             {
@@ -29,16 +29,17 @@ namespace CustTrack.Controllers
             }
             else
             {
+                FormsAuthentication.SetAuthCookie(user.employee_username, false);
                 switch (user.employee_authority_id)
                 {
                     case 1:
-                        FormsAuthentication.SetAuthCookie(user.employee_username, false);
                         return RedirectToAction("Index", "Admin");
                     case 2:
-                        FormsAuthentication.SetAuthCookie(user.employee_username, false);
+                        return RedirectToAction("Index", "Manager");
+                    case 3:
                         return RedirectToAction("Index", "Home");
                     default:
-                        ViewBag.Mesaj = "Bu yetki için geçerli sayfa bulunamadı";
+                        ViewBag.Mesaj = "Bir hata oluştu";
                         return View();
                 }
             }

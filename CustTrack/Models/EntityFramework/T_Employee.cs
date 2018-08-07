@@ -24,5 +24,10 @@ namespace CustTrack.Models.EntityFramework
         public string employee_mail { get; set; }
         public byte[] employee_photo { get; set; }
         public string employee_password { get; set; }
+
+        public static implicit operator T_Employee(UpdateEmployeeModel v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
