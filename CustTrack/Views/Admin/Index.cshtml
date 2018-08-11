@@ -10,12 +10,12 @@
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
 </head>
 <div class="container">
-    <table class="table">
+    <br />
+    <table class="table table-borderless">
         <thead>
             <tr>
                 <td align="center"><b>Bölüm</b></td>
                 <td align="center"><b>Düzenle</b></td>
-                <td align="center"><b>Sil</b></td>
             </tr>
         </thead>
         <tbody>
@@ -23,8 +23,7 @@
             {
                 <tr>
                     <td align="center">@departman.department_name</td>
-                    <td align="center"><a class="btn btn-warning" href="/Admin/Departmant/@departman.department_id">Düzenle</a></td>
-                    <td align="center"><a class="btn btn-danger" href="/Admin/RemoveDepartmant/@departman.department_id">Sil</a></td>
+                    <td align="center"><a class="btn btn-outline-dark" href="/Admin/Departmant/@departman.department_id">Detay</a></td>
                 </tr>
             }
         </tbody>

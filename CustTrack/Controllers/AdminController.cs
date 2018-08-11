@@ -133,10 +133,11 @@ namespace CustTrack.Controllers
 
         #endregion
 
-        #region Department Process
+        #region Departments' Process
 
         // Adding and Updating departmant
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Departmant(UpdateDepartmentModel dep)
         {
             // New Departmant
@@ -183,6 +184,7 @@ namespace CustTrack.Controllers
         #region Employees' Process
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Employee(UpdateEmployeeModel updateemployeemodel, FormCollection form)
         {
             if (updateemployeemodel._Employee.employee_id == 0)
@@ -216,6 +218,7 @@ namespace CustTrack.Controllers
         }
 
         // Removing
+        [ValidateAntiForgeryToken]
         public ActionResult RemoveEmployee(int id)
         {
             var emp = db.T_Employee

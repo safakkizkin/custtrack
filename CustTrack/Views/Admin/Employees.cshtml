@@ -6,7 +6,7 @@
 
 @ViewBag.Mesaj
 <br />
-<table class="table table-bordered">
+<table class="table table-borderless">
     <thead>
         <tr align="center">
             <th>Adı Soyadı</th>
@@ -24,7 +24,7 @@
                 <td>@employee.employee_mail</td>
                 <td>@Model.Authorities.First(x => x.authority_id == employee.employee_authority_id).authority_name</td>
                 <td>@Model.Departmans.First(x => x.department_id == employee.department_id).department_name</td>
-                <td><a class="btn btn-secondary" href="/Admin/Employee/@employee.employee_id">Detay</a></td>
+                <td><a class="btn btn-outline-dark" href="/Admin/Employee/@employee.employee_id">Detay</a></td>
             </tr>
         }
     </tbody>

@@ -5,8 +5,10 @@
 }
 
 <div align="center">
+    <br />
     @using (Html.BeginForm("Departmant", "Admin", FormMethod.Post))
     {
+        @Html.AntiForgeryToken()
         if (Model.Department.department_id != 0)
         {
             <h4 align="center">Güncelleme: <b>@Html.DisplayFor(model => model.Department.department_name)</b></h4>
@@ -29,8 +31,9 @@
             </div>
             <p>
                 @Html.HiddenFor(m => m.Department.department_id)
-                <button type="submit" class="btn"> Kaydet </button>
-                <button type="reset" class="btn"> Temizle</button>
+                <button type="submit" class="btn btn-outline-dark"> Kaydet </button>
+                <button type="reset" class="btn btn-outline-secondary"> Temizle</button>
+                <button class="btn btn-outline-danger" href="/Admin/RemoveDepartmant/@Model.Department.department_id">Sil</button>
             </p>
         }
         else
