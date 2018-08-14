@@ -30,18 +30,7 @@ namespace CustTrack.Controllers
             else
             {
                 FormsAuthentication.SetAuthCookie(user.employee_username, false);
-                switch (user.employee_authority_id)
-                {
-                    case 1:
-                        return RedirectToAction("Index", "Admin");
-                    case 2:
-                        return RedirectToAction("Index", "Manager");
-                    case 3:
-                        return RedirectToAction("Index", "Home");
-                    default:
-                        ViewBag.Mesaj = "Bir hata oluştu";
-                        return View();
-                }
+                return RedirectToAction("Index", "Calendar");
             }
         }
 

@@ -1,10 +1,16 @@
-﻿using System.Web.Security;
+﻿using CustTrack.Models.EntityFramework;
+using System.Linq;
+using System.Web.Security;
 
 namespace CustTrack.Security
 {
     public class _RoleProvider : RoleProvider
     {
-        public override string ApplicationName { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+        public override string ApplicationName
+        {
+            get => throw new System.NotImplementedException();
+            set => throw new System.NotImplementedException();
+        }
 
         public override void AddUsersToRoles(string[] usernames, string[] roleNames)
         {
@@ -33,7 +39,18 @@ namespace CustTrack.Security
 
         public override string[] GetRolesForUser(string username)
         {
-            throw new System.NotImplementedException();
+            SalesManContextEntities db = new SalesManContextEntities();
+            switch (db.T_Employee.FirstOrDefault(x => x.employee_username == username).employee_authority_id)
+            {
+                case 1:
+                    return new string[] { "Admin" };
+                case 2:
+                    return new string[] { "Manager" };
+                case 3:
+                    return new string[] { "SalesMan" };
+                default:
+                    throw new System.NotImplementedException();
+            }
         }
 
         public override string[] GetUsersInRole(string roleName)

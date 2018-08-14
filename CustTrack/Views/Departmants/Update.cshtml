@@ -1,12 +1,12 @@
 ﻿@model CustTrack.Models.UpdateDepartmentModel
 @{
     ViewBag.Title = "Update";
-    Layout = "~/Views/Shared/_adminLayout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div align="center">
     <br />
-    @using (Html.BeginForm("Departmant", "Admin", FormMethod.Post))
+    @using (Html.BeginForm("Update", "Departmants", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
         if (Model.Department.department_id != 0)
@@ -33,7 +33,7 @@
                 @Html.HiddenFor(m => m.Department.department_id)
                 <button type="submit" class="btn btn-outline-dark"> Kaydet </button>
                 <button type="reset" class="btn btn-outline-secondary"> Temizle</button>
-                <button class="btn btn-outline-danger" href="/Admin/RemoveDepartmant/@Model.Department.department_id">Sil</button>
+                <button class="btn btn-outline-danger" href="/Departmants/Remove/@Model.Department.department_id">Sil</button>
             </p>
         }
         else

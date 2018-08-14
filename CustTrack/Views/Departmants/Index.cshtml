@@ -2,7 +2,7 @@
 @model List<T_Department>
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_adminLayout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -23,13 +23,13 @@
             {
                 <tr>
                     <td align="center">@departman.department_name</td>
-                    <td align="center"><a class="btn btn-outline-dark" href="/Admin/Departmant/@departman.department_id">Detay</a></td>
+                    <td align="center"><a class="btn btn-outline-dark" href="/Departmants/Update/@departman.department_id">Detay</a></td>
                 </tr>
             }
         </tbody>
     </table>
     <div align="right" class="col-lg-12">
-        <a class="btn btn-secondary" href="/Admin/Departmant/0"> Bölüm Ekle</a>
+        <a class="btn btn-secondary" href="/Departmants/Update/0"> Bölüm Ekle</a>
     </div>
 </div>
 

@@ -2,13 +2,13 @@
 
 @{
     ViewBag.Title = "Bilgi";
-    Layout = "~/Views/Shared/_adminLayout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <br />
 <h4 align="center">Bilgi: <b> @Model._Employee.employee_name @Model._Employee.employee_surname</b></h4>
 <div align="center">
     <hr />
-    @using (Html.BeginForm("Employee", "Admin", FormMethod.Post))
+    @using (Html.BeginForm("Update", "Employees", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
         @Html.HiddenFor(m => m._Employee.employee_id)
@@ -33,7 +33,7 @@
         <p>
             <button type="submit" class="btn btn-outline-warning"> Güncelle </button>
             <button type="reset" class="btn btn-outline-secondary"> Temizle</button>
-            <button class="btn btn-outline-danger" href="/Admin/RemoveEmployee/@Model._Employee.employee_id">Sil</button>
+            <button class="btn btn-outline-danger" href="/Employees/Remove/@Model._Employee.employee_id">Sil</button>
         </p>
     }
 </div>
