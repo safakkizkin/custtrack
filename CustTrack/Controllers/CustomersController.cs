@@ -27,10 +27,11 @@ namespace CustTrack.Controllers
         {
             if (id == 0)
             {
-                /*var viewModel = new CustomerModel
+                var viewModel = new CustomerModel
                 {
+                    
                 }
-                return View(viewModel);*/
+                return View(viewModel);
             }
             return View(viewModel);
         }

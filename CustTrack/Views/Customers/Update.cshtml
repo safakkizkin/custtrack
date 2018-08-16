@@ -1,8 +1,41 @@
-﻿
+﻿@model CustTrack.Models.CustomerModel
 @{
     ViewBag.Title = "Update";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Update</h2>
-
+<div class="container">
+    <br />
+    @using (Html.BeginForm("Update", "Customers", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        if(Model.customers.customer_id != 0)
+        {
+            <h4 align="center">Güncelleme: <b>@Html.DisplayFor(model => model.customer.customer_company_name)</b></b></h4>
+            <hr />
+            <div align="center" class="form-group">
+                @Html.TextBoxFor( m => m.cust.customer_authorized_1)
+                @Html.TextBoxFor( m => m.cust.customer_authorized_2)
+                @Html.TextBoxFor( m => m.cust.customer_authorized_3)
+                @Html.TextBoxFor( m => m.cust.customer_sector)
+                @Html.TextBoxFor( m => m.cust.customer_area)
+                @Html.TextBoxFor( m => m.cust.customer_phone)
+                @Html.TextBoxFor( m => m.cust.customer_mail)
+            </div>
+            <div align="center" class="form-group">
+                @Html.TextBoxFor( m => m.cust.customer_company_name)
+                @Html.TextBoxFor( m => m.cust.customer_province)
+                @Html.TextBoxFor( m => m.cust.customer_district)
+                @Html.TextBoxFor( m => m.cust.customer_post_code)
+                @Html.TextBoxFor( m => m.cust.customer_tax_number)
+                @Html.TextBoxFor( m => m.cust.customer_tax_administration)
+                @Html.TextBoxFor( m => m.cust.customer_fax)
+            </div>
+            <p>
+                @Html.HiddenFor(m => m.emp.employee_id)
+                <button type="submit" class="btn"> Kaydet </button>
+                <button type="reset" class="btn"> Temizle </button>
+            </p>
+        }
+    }
+</div>
