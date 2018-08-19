@@ -1,11 +1,10 @@
-namespace CustTrack.Models.CustomerModel
-{
-    using CustTrack.Models.T_Employee;
-    using CustTrack.Models.T_Customer;
+using CustTrack.Models.EntityFramework;
 
+namespace CustTrack.Models
+{
     public class CustomerModel
     {
-        public T_Customer cust { get; set; }
-        public T_Employee emp { get; set; }
+        public T_Customer _Cust { get; set; }
+        public T_Employee _Emp { get; set; }
     }
 }

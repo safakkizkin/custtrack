@@ -1,4 +1,5 @@
-﻿@model CustTrack.Models.CustomersModel
+﻿@using CustTrack.Models.EntityFramework;
+@model List<T_Customer>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -16,7 +17,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var cust in Model.Custs)
+            @foreach (var cust in Model)
             {
                 <tr>
                     <td>@cust.customer_company_name</td>

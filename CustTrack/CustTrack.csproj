@@ -156,6 +156,8 @@
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\CalendarController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Models\CustomerModel.cs" />
+    <Compile Include="Models\CustomersModel.cs" />
     <Compile Include="Models\EmployeesModel.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
