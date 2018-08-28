@@ -4,64 +4,116 @@
     ViewBag.Title = "Update";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <div class="container">
     <br />
-    @Html.AntiForgeryToken()
     @using (Html.BeginForm("Update", "Customers", FormMethod.Post))
     {
+        @Html.AntiForgeryToken()
         <div align="center" class="container">
             @if (Model._Cust.customer_id != 0)
             {
-            <h4 align="center">Güncelleme: <b>@Html.DisplayFor(model => model._Cust.customer_company_name)</b></h4>
-            <hr />
-            <div class="form-group">
-                <p>@Html.TextBoxFor(m => m._Cust.customer_authorized_1, new { @class = "form-control", placeholder = "Yetkili" })</p>
-                <p>@Html.TextBoxFor(m => m._Cust.customer_authorized_2, new { @class = "form-control", placeholder = "Yetkili 2" })</p>
-                <p>@Html.TextBoxFor(m => m._Cust.customer_authorized_3, new { @class = "form-control", placeholder = "Yetkili 3" })</p>
-                <p>@Html.TextBoxFor(m => m._Cust.customer_sector, new { @class = "form-control", placeholder = "Sektör" })</p>
-                <p>@Html.TextBoxFor(m => m._Cust.customer_area, new { @class = "form-control", placeholder = "Alan" })</p>
-                <p>@Html.TextBoxFor(m => m._Cust.customer_phone, new { @class = "form-control", placeholder = "Telefon" })</p>
-                <p>@Html.TextBoxFor(m => m._Cust.customer_mail, new { @class = "form-control", placeholder = "Mail" })</p>
-            </div>
-            <div class="form-group">
-                <p>@Html.TextBoxFor(m => m._Cust.customer_company_name, new { @class = "form-control", placeholder = "Şirket Adı" })</p>
-                <p>@Html.TextBoxFor(m => m._Cust.customer_province, new { @class = "form-control", placeholder = "İl" })</p>
-                <p>@Html.TextBoxFor(m => m._Cust.customer_district, new { @class = "form-control", placeholder = "İlçe" })</p>
-                <p>@Html.TextBoxFor(m => m._Cust.customer_post_code, new { @class = "form-control", placeholder = "Posta kodu" })</p>
-                <p>@Html.TextBoxFor(m => m._Cust.customer_tax_number, new { @class = "form-control", placeholder = "Vergi No" })</p>
-                <p>@Html.TextBoxFor(m => m._Cust.customer_tax_administration, new { @class = "form-control", placeholder = "Vergi Dairesi" })</p>
-                <p>@Html.TextBoxFor(m => m._Cust.customer_fax, new { @class = "form-control", placeholder = "Fax No" })</p>
-            </div>
+                <h4 align="center">Güncelleme: <b>@Html.DisplayFor(model => model._Cust.customer_company_name)</b></h4>
+                <hr />
+                <div class="form-group">
+                    <p>@Html.TextBoxFor(m => m._Cust.customer_authorized_1, new { @class = "form-control", placeholder = "Yetkili" })</p>
+                    <p>@Html.TextBoxFor(m => m._Cust.customer_authorized_2, new { @class = "form-control", placeholder = "Yetkili 2" })</p>
+                    <p>@Html.TextBoxFor(m => m._Cust.customer_authorized_3, new { @class = "form-control", placeholder = "Yetkili 3" })</p>
+                    <p>@Html.TextBoxFor(m => m._Cust.customer_sector, new { @class = "form-control", placeholder = "Sektör" })</p>
+                    <p>@Html.TextBoxFor(m => m._Cust.customer_area, new { @class = "form-control", placeholder = "Alan" })</p>
+                    <p>@Html.TextBoxFor(m => m._Cust.customer_phone, new { @class = "form-control", placeholder = "Telefon" })</p>
+                    <p>@Html.TextBoxFor(m => m._Cust.customer_mail, new { @class = "form-control", placeholder = "Mail" })</p>
+                </div>
+                <div class="form-group">
+                    <p>@Html.TextBoxFor(m => m._Cust.customer_company_name, new { @class = "form-control", placeholder = "Şirket Adı" })</p>
+                    <p>@Html.DropDownList("DropDownListCities", new SelectList(Model._Cities.Where(x => x.city_id != Model._City.city_id), "city_id", "city_name"), Model._City.city_name, new { @class = "form-control", @onchange = "getDistrictList(this.value)" })</p>
+                    <p>
+                        <select name="DropDownListDistricts" id="DropDownListDistricts" class="custom-select">
+                            @foreach (var item in @Model._Districts)
+                            {
+                                if (item.district_id == Model._District.district_id)
+                                {
+                                    <option value="@item.district_id" selected>@item.district_name</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.district_id">@item.district_name</option>
+                                }
+                            }
+                        </select>
+                    </p>
+                    <p>@Html.TextBoxFor(m => m._Cust.customer_post_code, new { @class = "form-control", placeholder = "Posta kodu" })</p>
+                    <p>@Html.TextBoxFor(m => m._Cust.customer_tax_number, new { @class = "form-control", placeholder = "Vergi No:" })</p>
+                    <p>@Html.TextBoxFor(m => m._Cust.customer_tax_administration, new { @class = "form-control", placeholder = "Vergi Dairesi" })</p>
+                    <p>@Html.TextBoxFor(m => m._Cust.customer_fax, new { @class = "form-control", placeholder = "Fax No" })</p>
+                </div>
             }
             else
             {
-            <h4 align="center">Yeni Müşteri</h4>
-            <hr />
-            <div class="form-group">
-                <p>@Html.TextBoxFor(m => m._Cust.customer_authorized_1, new { @class = "form-control", placeholder = "Yetkili" })</p>
-                <p>@Html.TextBoxFor(m => m._Cust.customer_authorized_2, new { @class = "form-control", placeholder = "Yetkili 2" })</p>
-                <p>@Html.TextBoxFor(m => m._Cust.customer_authorized_3, new { @class = "form-control", placeholder = "Yetkili 3" })</p>
-                <p>@Html.TextBoxFor(m => m._Cust.customer_sector, new { @class = "form-control", placeholder = "Sektör" })</p>
-                <p>@Html.TextBoxFor(m => m._Cust.customer_area, new { @class = "form-control", placeholder = "Alan" })</p>
-                <p>@Html.TextBoxFor(m => m._Cust.customer_phone, new { @class = "form-control", placeholder = "Telefon" })</p>
-                <p>@Html.TextBoxFor(m => m._Cust.customer_mail, new { @class = "form-control", placeholder = "Mail" })</p>
-            </div>
-            <div class="form-group">
-                <p>@Html.TextBoxFor(m => m._Cust.customer_company_name, new { @class = "form-control", placeholder = "Şirket Adı" })</p>
-                <p>@Html.TextBoxFor(m => m._Cust.customer_province, new { @class = "form-control", placeholder = "İl" })</p>
-                <p>@Html.TextBoxFor(m => m._Cust.customer_district, new { @class = "form-control", placeholder = "İlçe" })</p>
-                <p>@Html.TextBoxFor(m => m._Cust.customer_post_code, new { @class = "form-control", placeholder = "Posta kodu" })</p>
-                <p>@Html.TextBoxFor(m => m._Cust.customer_tax_number, new { @class = "form-control", placeholder = "Vergi No" })</p>
-                <p>@Html.TextBoxFor(m => m._Cust.customer_tax_administration, new { @class = "form-control", placeholder = "Vergi Dairesi" })</p>
-                <p>@Html.TextBoxFor(m => m._Cust.customer_fax, new { @class = "form-control", placeholder = "Fax No" })</p>
-            </div>
+                <h4 align="center">Yeni Müşteri</h4>
+                <hr />
+                <div class="form-group">
+                    <p>@Html.TextBoxFor(m => m._Cust.customer_authorized_1, new { @class = "form-control", placeholder = "Yetkili" })</p>
+                    <p>@Html.TextBoxFor(m => m._Cust.customer_authorized_2, new { @class = "form-control", placeholder = "Yetkili 2" })</p>
+                    <p>@Html.TextBoxFor(m => m._Cust.customer_authorized_3, new { @class = "form-control", placeholder = "Yetkili 3" })</p>
+                    <p>@Html.TextBoxFor(m => m._Cust.customer_sector, new { @class = "form-control", placeholder = "Sektör" })</p>
+                    <p>@Html.TextBoxFor(m => m._Cust.customer_area, new { @class = "form-control", placeholder = "Alan" })</p>
+                    <p>@Html.TextBoxFor(m => m._Cust.customer_phone, new { @class = "form-control", placeholder = "Telefon" })</p>
+                    <p>@Html.TextBoxFor(m => m._Cust.customer_mail, new { @class = "form-control", placeholder = "Mail" })</p>
+                </div>
+                <div class="form-group">
+                    <p>@Html.TextBoxFor(m => m._Cust.customer_company_name, new { @class = "form-control", placeholder = "Şirket Adı" })</p>
+                    <p>@Html.DropDownList("DropDownListCities", new SelectList(Model._Cities.Where(x => x.city_id != Model._City.city_id), "city_id", "city_name"), Model._City.city_name, new { @class = "form-control", @onchange = "getDistrictList(this.value)" })</p>
+                    <p>
+                        <select id="DropDownListDistricts" name="DropDownListDistricts" class="custom-select" disabled>
+                            <option value="0">Lütfen Şehir Seçiniz</option>
+                        </select>
+                    </p>
+                    <p>@Html.TextBoxFor(m => m._Cust.customer_post_code, new { @class = "form-control", placeholder = "Posta kodu" })</p>
+                    <p>@Html.TextBoxFor(m => m._Cust.customer_tax_number, new { @class = "form-control", placeholder = "Vergi No" })</p>
+                    <p>@Html.TextBoxFor(m => m._Cust.customer_tax_administration, new { @class = "form-control", placeholder = "Vergi Dairesi" })</p>
+                    <p>@Html.TextBoxFor(m => m._Cust.customer_fax, new { @class = "form-control", placeholder = "Fax No" })</p>
+                </div>
             }
-            <p>
-                @Html.HiddenFor(m => m._Emp.employee_id)
-                <button type="submit" class="btn"> Kaydet </button>
-                <button type="reset" class="btn"> Temizle </button>
-            </p>
+                <p>
+                    @Html.HiddenFor(m => m._Cust.customer_id)
+                    @if (Model._Cust.customer_id != 0)
+                    {
+                        <input name="submit" class="btn btn-outline-warning" type="submit" id="save" value="Güncelle" />
+                        <input name="submit" class="btn btn-outline-danger" type="submit" id="delete" value="Sil" />
+                    }
+                    else
+                    {
+                        <input name="submit" class="btn btn-outline-warning" type="submit" id="save" value="Kaydet" />
+                    }
+                    <button type="reset" class="btn btn-outline-secondary"> Temizle </button>
+                </p>
         </div>
     }
 </div>
+<script>
+    function getDistrictList() {
+        var stateId = $("#DropDownListCities").val();
+        console.log(stateId);
+        $.ajax
+            ({
+                url: '/Customers/GetDistrictById',
+                type: 'POST',
+                datatype: 'application/json',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    stateId: +stateId
+                }),
+                success: function (result) {
+                    var eleman = document.getElementById("DropDownListDistricts");
+                    eleman.removeAttribute("disabled");
+                    $("#DropDownListDistricts").html("");
+                    $.each($.parseJSON(result), function (i, district) {
+                        $("#DropDownListDistricts").append($('<option></option>').val(district.district_id).html(district.district_name))
+                    })
+                },
+                error: function () {
+                    alert("Bir şeyler ters gitti")
+                },
+            });
+    }
+</script>

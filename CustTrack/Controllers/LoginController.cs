@@ -1,5 +1,8 @@
 ﻿using CustTrack.Models.EntityFramework;
+using System;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web.Mvc;
 using System.Web.Security;
 
@@ -20,7 +23,10 @@ namespace CustTrack.Controllers
         [AllowAnonymous]
         public ActionResult Index(T_Employee employee)
         {
-            user = db.T_Employee.FirstOrDefault(x => x.employee_username.Equals(employee.employee_username) && x.employee_password.Equals(employee.employee_password));
+            var hash = new HashIt();
+            var result = hash.Hashit(employee.employee_password);
+
+            user = db.T_Employee.FirstOrDefault(x => x.employee_username.Equals(employee.employee_username) && x.employee_password.Equals(result));
             
             if (user == null)
             {

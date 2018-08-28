@@ -1,7 +1,9 @@
 ﻿using CustTrack.Models;
 using CustTrack.Models.EntityFramework;
+using System;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace CustTrack.Controllers
 {
@@ -22,39 +24,111 @@ namespace CustTrack.Controllers
             {
                 var _custModel = new CustomerModel
                 {
-                    _Emp = db.T_Employee.First(x => x.employee_username == User.Identity.Name),
                     _Cust = new T_Customer
                     {
                         customer_id = 0
-                    }
+                    },
+                    _City = new T_City
+                    {
+                        city_id = 0,
+                        city_name = "Şehir Seçiniz"
+                    },
+                    _Cities = db.T_City.ToList(),
+                    _District = new T_District
+                    {
+                        city_id = 0,
+                        district_id = 0,
+                        district_name = "İlk Şehir Seçiniz"
+                    },
+                    _Districts = db.T_District.Where(m => m.city_id == 0).ToList()
                 };
                 return View(_custModel);
             }
             else
             {
+                var _cus = db.T_Customer.Find(id);
                 var _custModel = new CustomerModel
                 {
-                    _Emp = db.T_Employee.First(x => x.employee_username == User.Identity.Name),
-                    _Cust= db.T_Customer.Find(id)
+                    _Cust = _cus,
+                    _City = db.T_City.First(m => m.city_id == _cus.customer_city_id),
+                    _Cities = db.T_City.OrderBy(x => x.city_name).ToList(),
+                    _District = db.T_District.First(d => d.district_id == _cus.customer_district_id),
+                    _Districts = db.T_District.Where(d => d.city_id == _cus.customer_city_id).OrderBy(x => x.district_name).ToList()
                 };
+
+
+
                 return View(_custModel);
             }
             
         }
 
         [HttpPost]
-        [Authorize(Roles ="Admin")]
-        public ActionResult Update(CustomerModel _cus)
+        public ActionResult GetDistrictById(string stateId)
         {
-            if(_cus._Cust.customer_id == 0)
-            {
+            JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+            var id = Convert.ToInt32(stateId);
+            string result = javaScriptSerializer.Serialize(db.T_District.Where(x => x.city_id == id).OrderBy(x => x.district_name).ToList());
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
 
-            }
-            else
+        [HttpPost]
+        [Authorize(Roles ="Admin")]
+        public ActionResult Update(CustomerModel _cus, FormCollection form, string submit)
+        {
+            switch (submit)
             {
+                case "Sil":
+                    { 
+                        var cust = db.T_Customer.Find(_cus._Cust.customer_id);
+                        if (cust == null)
+                        {
+                            return HttpNotFound();
+                        }db.T_Customer.Remove(cust);
+                        break;
+                    }
+                default:
+                    {
+                        if (_cus._Cust.customer_id == 0)
+                        {
+                            _cus._Cust.customer_city_id = int.Parse(form["DropDownListCities"]);
+                            _cus._Cust.customer_district_id = int.Parse(form["DropDownListDistricts"]);
 
+                            db.T_Customer.Add(_cus._Cust);
+                        }
+                        else
+                        {
+                            if (db.T_Customer.Find(_cus._Cust.customer_id) == null)
+                            {
+                                return HttpNotFound();
+                            }
+
+                            var cy_id = db.T_Customer.Find(_cus._Cust.customer_id).customer_city_id;
+                            var dt_id = db.T_Customer.Find(_cus._Cust.customer_id).customer_district_id;
+
+                            db.T_Customer.Find(_cus._Cust.customer_id).customer_authorized_1 = _cus._Cust.customer_authorized_1;
+                            db.T_Customer.Find(_cus._Cust.customer_id).customer_authorized_2 = _cus._Cust.customer_authorized_2;
+                            db.T_Customer.Find(_cus._Cust.customer_id).customer_authorized_3 = _cus._Cust.customer_authorized_3;
+                            db.T_Customer.Find(_cus._Cust.customer_id).customer_sector = _cus._Cust.customer_sector;
+                            db.T_Customer.Find(_cus._Cust.customer_id).customer_area = _cus._Cust.customer_area;
+                            db.T_Customer.Find(_cus._Cust.customer_id).customer_phone = _cus._Cust.customer_phone;
+                            db.T_Customer.Find(_cus._Cust.customer_id).customer_mail = _cus._Cust.customer_mail;
+                            db.T_Customer.Find(_cus._Cust.customer_id).customer_company_name = _cus._Cust.customer_company_name;
+                            db.T_Customer.Find(_cus._Cust.customer_id).customer_city_id = form["DropDownListCities"].ToString() == "" ? cy_id : int.Parse(form["DropDownListCities"]);
+                            db.T_Customer.Find(_cus._Cust.customer_id).customer_district_id =form["DropDownListDistricts"].ToString() == "" ? dt_id : int.Parse(form["DropDownListDistricts"]);
+                            db.T_Customer.Find(_cus._Cust.customer_id).customer_post_code = _cus._Cust.customer_post_code;
+                            db.T_Customer.Find(_cus._Cust.customer_id).customer_tax_number = _cus._Cust.customer_tax_number;
+                            db.T_Customer.Find(_cus._Cust.customer_id).customer_tax_administration = _cus._Cust.customer_tax_administration;
+                            db.T_Customer.Find(_cus._Cust.customer_id).customer_fax = _cus._Cust.customer_fax;
+                            
+                            
+                        }
+                        break;
+                    }
             }
+            db.SaveChanges();
             return RedirectToAction("Index", "Customers");
+
         }
     }
 }

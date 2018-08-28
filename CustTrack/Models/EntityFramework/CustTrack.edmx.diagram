@@ -4,14 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="fbd5b7764221404e9b64f693c2ab9916" Name="Diagram1">
+      <Diagram DiagramId="1c3daecb4fe44a489a21a0795a0a1460" Name="Diagram1">
         <EntityTypeShape EntityType="SalesManContextModel.T_Admin" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SalesManContextModel.T_Appointment" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SalesManContextModel.T_AppointmentType" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SalesManContextModel.T_Authority" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SalesManContextModel.T_Customer" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SalesManContextModel.T_Authority" Width="1.5" PointX="6.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SalesManContextModel.T_Customer" Width="1.5" PointX="4.75" PointY="2.25" IsExpanded="true" />
         <EntityTypeShape EntityType="SalesManContextModel.T_Department" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SalesManContextModel.T_Employee" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SalesManContextModel.T_Employee" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SalesManContextModel.T_City" Width="1.5" PointX="6.75" PointY="3.75" />
+        <EntityTypeShape EntityType="SalesManContextModel.T_District" Width="1.5" PointX="8.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

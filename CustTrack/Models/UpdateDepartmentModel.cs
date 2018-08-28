@@ -5,8 +5,8 @@ namespace CustTrack.Models
 {
     public class UpdateDepartmentModel
     {
-        public IList<T_Employee> EmployeeModel { get; set; }
-        public IList<T_Employee> ManagerModel { get; set; }
-        public T_Department Department { get; set; }
+        public IList<T_Employee> _EmployeeModel { get; set; }
+        public IList<T_Employee> _ManagerModel { get; set; }
+        public T_Department _Department { get; set; }
     }
 }

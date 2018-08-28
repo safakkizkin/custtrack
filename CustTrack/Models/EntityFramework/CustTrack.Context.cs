@@ -32,5 +32,7 @@ namespace CustTrack.Models.EntityFramework
         public virtual DbSet<T_Customer> T_Customer { get; set; }
         public virtual DbSet<T_Department> T_Department { get; set; }
         public virtual DbSet<T_Employee> T_Employee { get; set; }
+        public virtual DbSet<T_City> T_City { get; set; }
+        public virtual DbSet<T_District> T_District { get; set; }
     }
 }

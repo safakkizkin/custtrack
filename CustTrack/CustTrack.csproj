@@ -156,6 +156,7 @@
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\CalendarController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\HashIt.cs" />
     <Compile Include="Models\CustomerModel.cs" />
     <Compile Include="Models\CustomersModel.cs" />
     <Compile Include="Models\EmployeesModel.cs" />
@@ -190,10 +191,16 @@
     <Compile Include="Models\EntityFramework\T_Authority.cs">
       <DependentUpon>CustTrack.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EntityFramework\T_City.cs">
+      <DependentUpon>CustTrack.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\EntityFramework\T_Customer.cs">
       <DependentUpon>CustTrack.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EntityFramework\T_Department.cs">
+      <DependentUpon>CustTrack.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EntityFramework\T_District.cs">
       <DependentUpon>CustTrack.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EntityFramework\T_Employee.cs">

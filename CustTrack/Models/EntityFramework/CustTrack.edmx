@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SalesManContextModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SalesManContextModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="T_Admin">
           <Key>
             <PropertyRef Name="admin_id" />
@@ -48,6 +48,13 @@
           <Property Name="authority_id" Type="int" Nullable="false" />
           <Property Name="authority_name" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
+        <EntityType Name="T_City">
+          <Key>
+            <PropertyRef Name="city_id" />
+          </Key>
+          <Property Name="city_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="city_name" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="T_Customer">
           <Key>
             <PropertyRef Name="customer_id" />
@@ -58,15 +65,15 @@
           <Property Name="customer_authorized_3" Type="nvarchar" MaxLength="50" />
           <Property Name="customer_sector" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="customer_area" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="customer_phone" Type="int" Nullable="false" />
+          <Property Name="customer_phone" Type="nvarchar" MaxLength="11" Nullable="false" />
           <Property Name="customer_mail" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="customer_company_name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="customer_province" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="customer_district" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="customer_post_code" Type="int" Nullable="false" />
-          <Property Name="customer_tax_number" Type="int" Nullable="false" />
+          <Property Name="customer_city_id" Type="int" Nullable="false" />
+          <Property Name="customer_district_id" Type="int" Nullable="false" />
+          <Property Name="customer_post_code" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="customer_tax_number" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="customer_tax_administration" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="customer_fax" Type="int" Nullable="false" />
+          <Property Name="customer_fax" Type="nvarchar" MaxLength="11" Nullable="false" />
         </EntityType>
         <EntityType Name="T_Department">
           <Key>
@@ -74,6 +81,14 @@
           </Key>
           <Property Name="department_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="department_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_District">
+          <Key>
+            <PropertyRef Name="district_id" />
+          </Key>
+          <Property Name="district_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="city_id" Type="int" Nullable="false" />
+          <Property Name="district_name" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="T_Employee">
           <Key>
@@ -88,19 +103,20 @@
           <Property Name="employee_phone" Type="nvarchar" MaxLength="11" Nullable="false" />
           <Property Name="employee_mail" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="employee_photo" Type="image" />
-          <Property Name="employee_password" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="employee_password" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
         <EntityContainer Name="SalesManContextModelStoreContainer">
           <EntitySet Name="T_Admin" EntityType="Self.T_Admin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_Appointment" EntityType="Self.T_Appointment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_AppointmentType" EntityType="Self.T_AppointmentType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_Authority" EntityType="Self.T_Authority" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_City" EntityType="Self.T_City" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_Customer" EntityType="Self.T_Customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_Department" EntityType="Self.T_Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_District" EntityType="Self.T_District" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_Employee" EntityType="Self.T_Employee" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SalesManContextModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -157,15 +173,15 @@
           <Property Name="customer_authorized_3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="customer_sector" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="customer_area" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="customer_phone" Type="Int32" Nullable="false" />
+          <Property Name="customer_phone" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="customer_mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="customer_company_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="customer_province" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="customer_district" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="customer_post_code" Type="Int32" Nullable="false" />
-          <Property Name="customer_tax_number" Type="Int32" Nullable="false" />
+          <Property Name="customer_post_code" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="customer_tax_number" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="customer_tax_administration" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="customer_fax" Type="Int32" Nullable="false" />
+          <Property Name="customer_fax" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="customer_city_id" Type="Int32" Nullable="false" />
+          <Property Name="customer_district_id" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="T_Department">
           <Key>
@@ -187,7 +203,7 @@
           <Property Name="employee_phone" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="employee_mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="employee_photo" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="employee_password" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="employee_password" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityContainer Name="SalesManContextEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="T_Admin" EntityType="Self.T_Admin" />
@@ -197,7 +213,24 @@
           <EntitySet Name="T_Customer" EntityType="Self.T_Customer" />
           <EntitySet Name="T_Department" EntityType="Self.T_Department" />
           <EntitySet Name="T_Employee" EntityType="Self.T_Employee" />
+          <EntitySet Name="T_City" EntityType="SalesManContextModel.T_City" />
+          <EntitySet Name="T_District" EntityType="SalesManContextModel.T_District" />
         </EntityContainer>
+        <EntityType Name="T_City">
+          <Key>
+            <PropertyRef Name="city_id" />
+          </Key>
+          <Property Name="city_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="city_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="T_District">
+          <Key>
+            <PropertyRef Name="district_id" />
+          </Key>
+          <Property Name="district_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="city_id" Type="Int32" Nullable="false" />
+          <Property Name="district_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -254,6 +287,8 @@
           <EntitySetMapping Name="T_Customer">
             <EntityTypeMapping TypeName="SalesManContextModel.T_Customer">
               <MappingFragment StoreEntitySet="T_Customer">
+                <ScalarProperty Name="customer_district_id" ColumnName="customer_district_id" />
+                <ScalarProperty Name="customer_city_id" ColumnName="customer_city_id" />
                 <ScalarProperty Name="customer_id" ColumnName="customer_id" />
                 <ScalarProperty Name="customer_authorized_1" ColumnName="customer_authorized_1" />
                 <ScalarProperty Name="customer_authorized_2" ColumnName="customer_authorized_2" />
@@ -263,8 +298,6 @@
                 <ScalarProperty Name="customer_phone" ColumnName="customer_phone" />
                 <ScalarProperty Name="customer_mail" ColumnName="customer_mail" />
                 <ScalarProperty Name="customer_company_name" ColumnName="customer_company_name" />
-                <ScalarProperty Name="customer_province" ColumnName="customer_province" />
-                <ScalarProperty Name="customer_district" ColumnName="customer_district" />
                 <ScalarProperty Name="customer_post_code" ColumnName="customer_post_code" />
                 <ScalarProperty Name="customer_tax_number" ColumnName="customer_tax_number" />
                 <ScalarProperty Name="customer_tax_administration" ColumnName="customer_tax_administration" />
@@ -293,6 +326,23 @@
                 <ScalarProperty Name="employee_mail" ColumnName="employee_mail" />
                 <ScalarProperty Name="employee_photo" ColumnName="employee_photo" />
                 <ScalarProperty Name="employee_password" ColumnName="employee_password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_City">
+            <EntityTypeMapping TypeName="SalesManContextModel.T_City">
+              <MappingFragment StoreEntitySet="T_City">
+                <ScalarProperty Name="city_name" ColumnName="city_name" />
+                <ScalarProperty Name="city_id" ColumnName="city_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_District">
+            <EntityTypeMapping TypeName="SalesManContextModel.T_District">
+              <MappingFragment StoreEntitySet="T_District">
+                <ScalarProperty Name="district_name" ColumnName="district_name" />
+                <ScalarProperty Name="city_id" ColumnName="city_id" />
+                <ScalarProperty Name="district_id" ColumnName="district_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -17,11 +17,11 @@ namespace CustTrack.Controllers
                              .ToList();
             var ViewModel = new EmployeesModel
             {
-                Departmans = db.T_Department
+                _Departmans = db.T_Department
                                .ToList(),
-                Employees = db.T_Employee.ToList()
+                _Employees = db.T_Employee.ToList()
                               .FindAll(x => x.employee_authority_id != 1),
-                Authorities = db.T_Authority
+                _Authorities = db.T_Authority
                                 .ToList()
             };
             return View(ViewModel);
@@ -91,54 +91,59 @@ namespace CustTrack.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Update(UpdateEmployeeModel updateemployeemodel, FormCollection form)
+        public ActionResult Update(UpdateEmployeeModel updateemployeemodel, FormCollection form, string submit)
         {
-            if (updateemployeemodel._Employee.employee_id == 0)
+            switch (submit)
             {
-                updateemployeemodel._Employee.department_id = int.Parse(Request.Form["DropDownListDepartmants"].ToString());
-                updateemployeemodel._Employee.employee_authority_id = int.Parse(Request.Form["DropDownListAuthorities"].ToString());
-                db.T_Employee
-                    .Add(updateemployeemodel._Employee);
+                case "Sil":
+                    {
+                        var emp = db.T_Employee.Find(updateemployeemodel._Employee.employee_id);
+                        if (emp == null)
+                        {
+                            return HttpNotFound();
+                        }
+                        db.T_Employee.Remove(emp);
+                        break;
+                    }
+                default:
+                    {
+                        var hash = new HashIt();
+
+                        if (updateemployeemodel._Employee.employee_id == 0)
+                        {
+                            updateemployeemodel._Employee.department_id = int.Parse(form["DropDownListDepartmants"].ToString());
+                            updateemployeemodel._Employee.employee_authority_id = int.Parse(form["DropDownListAuthorities"].ToString());
+
+                            updateemployeemodel._Employee.employee_password = hash.Hashit(updateemployeemodel._Employee.employee_password);
+
+                            db.T_Employee.Add(updateemployeemodel._Employee);
+                        }
+                        else
+                        {
+                            if (db.T_Employee.Find(updateemployeemodel._Employee.employee_id) == null)
+                            {
+                                return HttpNotFound();
+                            }
+
+                            var dp_id = db.T_Employee.Find(updateemployeemodel._Employee.employee_id).department_id;
+                            var ea_id = db.T_Employee.Find(updateemployeemodel._Employee.employee_id).employee_authority_id;
+
+                            db.T_Employee.Find(updateemployeemodel._Employee.employee_id).employee_mail = updateemployeemodel._Employee.employee_mail;
+                            db.T_Employee.Find(updateemployeemodel._Employee.employee_id).employee_name = updateemployeemodel._Employee.employee_name;
+                            db.T_Employee.Find(updateemployeemodel._Employee.employee_id).employee_phone = updateemployeemodel._Employee.employee_phone;
+                            db.T_Employee.Find(updateemployeemodel._Employee.employee_id).employee_photo = updateemployeemodel._Employee.employee_photo;
+                            db.T_Employee.Find(updateemployeemodel._Employee.employee_id).employee_surname = updateemployeemodel._Employee.employee_surname;
+                            db.T_Employee.Find(updateemployeemodel._Employee.employee_id).employee_username = updateemployeemodel._Employee.employee_username;
+                            
+                            db.T_Employee.Find(updateemployeemodel._Employee.employee_id).employee_password = hash.Hashit(updateemployeemodel._Employee.employee_password);
+
+                            db.T_Employee.Find(updateemployeemodel._Employee.employee_id).department_id = form["DropDownListDepartmants"].ToString() == "" ? dp_id : int.Parse(form["DropDownListDepartmants"]);
+                            db.T_Employee.Find(updateemployeemodel._Employee.employee_id).employee_authority_id = form["DropDownListAuthorities"].ToString() == "" ? ea_id : int.Parse(form["DropDownListAuthorities"]);
+                        }
+                        break;
+                    }
             }
-            else
-            {
-                var emp_update = db.T_Employee
-                                    .Find(updateemployeemodel._Employee.employee_id);
-
-                if (emp_update == null)
-                {
-                    return HttpNotFound();
-                }
-                var dp_id = emp_update.department_id;
-                var ea_id = emp_update.employee_authority_id;
-                emp_update = updateemployeemodel._Employee;
-                string selected_auth = form["DropDownListAuthorities"].ToString();
-
-                emp_update.department_id = form["DropDownListDepartmants"].ToString() == "" ? dp_id : int.Parse(form["DropDownListDepartmants"]);
-                emp_update.employee_authority_id = form["DropDownListAuthorities"].ToString() == "" ? ea_id : int.Parse(form["DropDownListAuthorities"]);
-            }
-
             db.SaveChanges();
-
-            return RedirectToAction("Index", "Employees");
-        }
-
-        // REMOVING
-        [ValidateAntiForgeryToken]
-        public ActionResult Remove(int id)
-        {
-            var emp = db.T_Employee
-                        .Find(id);
-            if (emp == null)
-            {
-                ViewBag.Mesaj = "Bu öğe silinemedi";
-            }
-            else
-            {
-                db.T_Employee
-                  .Remove(emp);
-            }
-
             return RedirectToAction("Index", "Employees");
         }
     }

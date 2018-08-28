@@ -7,23 +7,23 @@
 <div class="container">
     <br />
     <h3> Şirketlerin Bilgileri </h3>
-    <table class="table table-borderless">
+    <table class="table table-borderless table-responsive-sm table-responsive-md">
         <thead>
             <tr>
-                <td>İsim</td>
-                <td>Sektör</td>
-                <td>Telefon</td>
-                <td>Daha fazla</td>
+                <td align="center"><b>İsim</b></td>
+                <td align="center"><b>Sektör</b></td>
+                <td align="center"><b>Telefon</b></td>
+                <td align="center"><b>Daha fazla</b></td>
             </tr>
         </thead>
         <tbody>
             @foreach (var cust in Model)
             {
                 <tr>
-                    <td>@cust.customer_company_name</td>
-                    <td>@cust.customer_sector</td>
-                    <td>@cust.customer_phone</td>
-                    <td><a class="btn btn-outline-secondary" href="/Customers/Update/@cust.customer_id">Detay</a></td>
+                    <td align="center">@cust.customer_company_name</td>
+                    <td align="center">@cust.customer_sector</td>
+                    <td align="center">@cust.customer_phone</td>
+                    <td align="center"><a class="btn btn-outline-secondary" href="/Customers/Update/@cust.customer_id">Detay</a></td>
                 </tr>
             }
         </tbody>
