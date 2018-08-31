@@ -19,8 +19,8 @@ namespace CustTrack.Controllers
             {
                 _Departmans = db.T_Department
                                .ToList(),
-                _Employees = db.T_Employee.ToList()
-                              .FindAll(x => x.employee_authority_id != 1),
+                _Employees = db.T_Employee
+                                .Where(x => x.employee_authority_id != 1).ToList(),
                 _Authorities = db.T_Authority
                                 .ToList()
             };

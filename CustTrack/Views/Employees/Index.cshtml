@@ -12,27 +12,19 @@
             <th>Adı Soyadı</th>
             <th>Mail</th>
             <th>Yetki derecesi</th>
-            <th>Bölümü</th>
             <th>Detay</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var employee in Model._Employees)
         {
-            <tr align="center" >
-                <td>@employee.employee_name @employee.employee_surname</td>
-                <td>@employee.employee_mail</td>
-                @if (employee.employee_authority_id == 2)
-                {
-                    <td bgcolor="#95b3e2">@Model._Authorities.First(x => x.authority_id == employee.employee_authority_id).authority_name</td>
-                }
-                else
-                {
-                    <td bgcolor="#d3dcea">@Model._Authorities.First(x => x.authority_id == employee.employee_authority_id).authority_name</td>
-                }
-                <td>@Model._Departmans.First(x => x.department_id == employee.department_id).department_name</td>
-                <td><a class="btn btn-outline-dark" href="/Employees/Update/@employee.employee_id">Detay</a></td>
-            </tr>
+        <tr align="center">
+            <td>@employee.employee_name @employee.employee_surname</td>
+            @{ string color = Model._Authorities.First(x => x.authority_id == employee.employee_authority_id).color; }
+            <td bgcolor="@color">@Model._Authorities.First( m => m.authority_id == employee.employee_authority_id).authority_name</td>
+            <td>@Model._Departmans.First(x => x.department_id == employee.department_id).department_name</td>
+            <td><a class="btn btn-outline-dark" href="/Employees/Update/@employee.employee_id">Detay</a></td>
+        </tr>
             
 
 

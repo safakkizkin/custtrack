@@ -16,5 +16,6 @@ namespace CustTrack.Models.EntityFramework
     {
         public int authority_id { get; set; }
         public string authority_name { get; set; }
+        public string color { get; set; }
     }
 }

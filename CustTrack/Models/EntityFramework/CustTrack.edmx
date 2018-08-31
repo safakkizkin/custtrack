@@ -47,6 +47,7 @@
           </Key>
           <Property Name="authority_id" Type="int" Nullable="false" />
           <Property Name="authority_name" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="color" Type="nvarchar" MaxLength="6" Nullable="false" />
         </EntityType>
         <EntityType Name="T_City">
           <Key>
@@ -162,6 +163,7 @@
           </Key>
           <Property Name="authority_id" Type="Int32" Nullable="false" />
           <Property Name="authority_name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="color" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="T_Customer">
           <Key>
@@ -279,6 +281,7 @@
           <EntitySetMapping Name="T_Authority">
             <EntityTypeMapping TypeName="SalesManContextModel.T_Authority">
               <MappingFragment StoreEntitySet="T_Authority">
+                <ScalarProperty Name="color" ColumnName="color" />
                 <ScalarProperty Name="authority_id" ColumnName="authority_id" />
                 <ScalarProperty Name="authority_name" ColumnName="authority_name" />
               </MappingFragment>

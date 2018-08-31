@@ -25,8 +25,8 @@ namespace CustTrack.Controllers
                 var viewModel = new UpdateDepartmentModel
                 {
                     _Department = new T_Department() { department_id = 0, department_name = "" },
-                    _EmployeeModel = db.T_Employee.ToList(),
-                    _ManagerModel = db.T_Employee.ToList()
+                    _Employees = db.T_Employee.Where(m => m.employee_authority_id != 1).ToList(),
+                    _Authorities = db.T_Authority.ToList()
                 };
                 return View(viewModel);
             }
@@ -36,8 +36,8 @@ namespace CustTrack.Controllers
                 var viewModel = new UpdateDepartmentModel
                 {
                     _Department = dep,
-                    _EmployeeModel = db.T_Employee.ToList().FindAll(m => m.department_id == dep.department_id && m.employee_authority_id == 3),
-                    _ManagerModel = db.T_Employee.ToList().FindAll(m => m.department_id == dep.department_id && m.employee_authority_id == 2)
+                    _Employees = db.T_Employee.Where(m => m.employee_authority_id != 1).ToList(),
+                    _Authorities = db.T_Authority.ToList()
                 };
                 return View(viewModel);
             }
