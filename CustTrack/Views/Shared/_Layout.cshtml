@@ -9,39 +9,8 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="container">
-        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            @Html.ActionLink("CustTrack", "Index", "Calendar", new { area = "" }, new { @class = "navbar-brand" })
-
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Calendar">Takvim</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Customers">Müşteriler</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Departmants">Bölümler</a>
-                    </li>
-                    @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link" href="/Employees">Çalışanlar</a>
-                        </li>
-                    }
-
-
-                </ul>
-                <form class="navbar-nav form-inline my-2 my-lg-0">
-                    <a class="nav-link" href="/Login/LogOut">Çıkış</a>
-                </form>
-            </div>
-        </nav>
-    </div>
+    @Html.Partial("_layoutRender")
+    
 
     <div class="container body-content">
         @RenderBody()

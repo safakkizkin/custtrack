@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="SalesManContextModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="SalesManContextModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="T_Admin">
           <Key>
             <PropertyRef Name="admin_id" />
@@ -23,10 +23,10 @@
           <Property Name="appointment_type_id" Type="int" Nullable="false" />
           <Property Name="appointment_start_date" Type="datetime" Nullable="false" />
           <Property Name="appointment_end_date" Type="datetime" Nullable="false" />
-          <Property Name="appointment_color" Type="binary" MaxLength="50" Nullable="false" />
+          <Property Name="appointment_color" Type="nvarchar" MaxLength="6" Nullable="false" />
           <Property Name="appointment_before_note" Type="nvarchar(max)" />
-          <Property Name="is_done" Type="bit" Nullable="false" />
           <Property Name="appointment_after_note" Type="nvarchar(max)" />
+          <Property Name="is_done" Type="bit" Nullable="false" />
           <Property Name="is_reappointment" Type="bit" Nullable="false" />
           <Property Name="is_offered" Type="bit" Nullable="false" />
           <Property Name="is_ordered" Type="bit" Nullable="false" />
@@ -117,7 +117,8 @@
           <EntitySet Name="T_District" EntityType="Self.T_District" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_Employee" EntityType="Self.T_Employee" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SalesManContextModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -139,10 +140,10 @@
           <Property Name="appointment_type_id" Type="Int32" Nullable="false" />
           <Property Name="appointment_start_date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="appointment_end_date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="appointment_color" Type="Binary" MaxLength="50" FixedLength="true" Nullable="false" />
+          <Property Name="appointment_color" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="appointment_before_note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="is_done" Type="Boolean" Nullable="false" />
           <Property Name="appointment_after_note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="is_done" Type="Boolean" Nullable="false" />
           <Property Name="is_reappointment" Type="Boolean" Nullable="false" />
           <Property Name="is_offered" Type="Boolean" Nullable="false" />
           <Property Name="is_ordered" Type="Boolean" Nullable="false" />
@@ -163,7 +164,14 @@
           </Key>
           <Property Name="authority_id" Type="Int32" Nullable="false" />
           <Property Name="authority_name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="color" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="color" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_City">
+          <Key>
+            <PropertyRef Name="city_id" />
+          </Key>
+          <Property Name="city_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="city_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="T_Customer">
           <Key>
@@ -178,12 +186,12 @@
           <Property Name="customer_phone" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="customer_mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="customer_company_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="customer_city_id" Type="Int32" Nullable="false" />
+          <Property Name="customer_district_id" Type="Int32" Nullable="false" />
           <Property Name="customer_post_code" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="customer_tax_number" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="customer_tax_administration" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="customer_fax" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="customer_city_id" Type="Int32" Nullable="false" />
-          <Property Name="customer_district_id" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="T_Department">
           <Key>
@@ -191,6 +199,14 @@
           </Key>
           <Property Name="department_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="department_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_District">
+          <Key>
+            <PropertyRef Name="district_id" />
+          </Key>
+          <Property Name="district_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="city_id" Type="Int32" Nullable="false" />
+          <Property Name="district_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="T_Employee">
           <Key>
@@ -212,27 +228,12 @@
           <EntitySet Name="T_Appointment" EntityType="Self.T_Appointment" />
           <EntitySet Name="T_AppointmentType" EntityType="Self.T_AppointmentType" />
           <EntitySet Name="T_Authority" EntityType="Self.T_Authority" />
+          <EntitySet Name="T_City" EntityType="Self.T_City" />
           <EntitySet Name="T_Customer" EntityType="Self.T_Customer" />
           <EntitySet Name="T_Department" EntityType="Self.T_Department" />
+          <EntitySet Name="T_District" EntityType="Self.T_District" />
           <EntitySet Name="T_Employee" EntityType="Self.T_Employee" />
-          <EntitySet Name="T_City" EntityType="SalesManContextModel.T_City" />
-          <EntitySet Name="T_District" EntityType="SalesManContextModel.T_District" />
         </EntityContainer>
-        <EntityType Name="T_City">
-          <Key>
-            <PropertyRef Name="city_id" />
-          </Key>
-          <Property Name="city_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="city_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="T_District">
-          <Key>
-            <PropertyRef Name="district_id" />
-          </Key>
-          <Property Name="district_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="city_id" Type="Int32" Nullable="false" />
-          <Property Name="district_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -259,8 +260,8 @@
                 <ScalarProperty Name="appointment_end_date" ColumnName="appointment_end_date" />
                 <ScalarProperty Name="appointment_color" ColumnName="appointment_color" />
                 <ScalarProperty Name="appointment_before_note" ColumnName="appointment_before_note" />
-                <ScalarProperty Name="is_done" ColumnName="is_done" />
                 <ScalarProperty Name="appointment_after_note" ColumnName="appointment_after_note" />
+                <ScalarProperty Name="is_done" ColumnName="is_done" />
                 <ScalarProperty Name="is_reappointment" ColumnName="is_reappointment" />
                 <ScalarProperty Name="is_offered" ColumnName="is_offered" />
                 <ScalarProperty Name="is_ordered" ColumnName="is_ordered" />
@@ -281,17 +282,23 @@
           <EntitySetMapping Name="T_Authority">
             <EntityTypeMapping TypeName="SalesManContextModel.T_Authority">
               <MappingFragment StoreEntitySet="T_Authority">
-                <ScalarProperty Name="color" ColumnName="color" />
                 <ScalarProperty Name="authority_id" ColumnName="authority_id" />
                 <ScalarProperty Name="authority_name" ColumnName="authority_name" />
+                <ScalarProperty Name="color" ColumnName="color" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_City">
+            <EntityTypeMapping TypeName="SalesManContextModel.T_City">
+              <MappingFragment StoreEntitySet="T_City">
+                <ScalarProperty Name="city_id" ColumnName="city_id" />
+                <ScalarProperty Name="city_name" ColumnName="city_name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="T_Customer">
             <EntityTypeMapping TypeName="SalesManContextModel.T_Customer">
               <MappingFragment StoreEntitySet="T_Customer">
-                <ScalarProperty Name="customer_district_id" ColumnName="customer_district_id" />
-                <ScalarProperty Name="customer_city_id" ColumnName="customer_city_id" />
                 <ScalarProperty Name="customer_id" ColumnName="customer_id" />
                 <ScalarProperty Name="customer_authorized_1" ColumnName="customer_authorized_1" />
                 <ScalarProperty Name="customer_authorized_2" ColumnName="customer_authorized_2" />
@@ -301,6 +308,8 @@
                 <ScalarProperty Name="customer_phone" ColumnName="customer_phone" />
                 <ScalarProperty Name="customer_mail" ColumnName="customer_mail" />
                 <ScalarProperty Name="customer_company_name" ColumnName="customer_company_name" />
+                <ScalarProperty Name="customer_city_id" ColumnName="customer_city_id" />
+                <ScalarProperty Name="customer_district_id" ColumnName="customer_district_id" />
                 <ScalarProperty Name="customer_post_code" ColumnName="customer_post_code" />
                 <ScalarProperty Name="customer_tax_number" ColumnName="customer_tax_number" />
                 <ScalarProperty Name="customer_tax_administration" ColumnName="customer_tax_administration" />
@@ -313,6 +322,15 @@
               <MappingFragment StoreEntitySet="T_Department">
                 <ScalarProperty Name="department_id" ColumnName="department_id" />
                 <ScalarProperty Name="department_name" ColumnName="department_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_District">
+            <EntityTypeMapping TypeName="SalesManContextModel.T_District">
+              <MappingFragment StoreEntitySet="T_District">
+                <ScalarProperty Name="district_id" ColumnName="district_id" />
+                <ScalarProperty Name="city_id" ColumnName="city_id" />
+                <ScalarProperty Name="district_name" ColumnName="district_name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -329,23 +347,6 @@
                 <ScalarProperty Name="employee_mail" ColumnName="employee_mail" />
                 <ScalarProperty Name="employee_photo" ColumnName="employee_photo" />
                 <ScalarProperty Name="employee_password" ColumnName="employee_password" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="T_City">
-            <EntityTypeMapping TypeName="SalesManContextModel.T_City">
-              <MappingFragment StoreEntitySet="T_City">
-                <ScalarProperty Name="city_name" ColumnName="city_name" />
-                <ScalarProperty Name="city_id" ColumnName="city_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="T_District">
-            <EntityTypeMapping TypeName="SalesManContextModel.T_District">
-              <MappingFragment StoreEntitySet="T_District">
-                <ScalarProperty Name="district_name" ColumnName="district_name" />
-                <ScalarProperty Name="city_id" ColumnName="city_id" />
-                <ScalarProperty Name="district_id" ColumnName="district_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -1,8 +1,17 @@
-﻿
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@{
+    ViewBag.Title = "Takvim";
+    Layout = "~/Views/Shared/_calendarLayout.cshtml";
 }
+<br />
+<div class="row">
+    <section class="col-md-12 col-md-push-0">
+        @Html.Partial("_CalendarPartial")
+    </section>
+</div>
 
-<h2>Index</h2>
-
+@section Scripts{
+    <script src='~/Scripts/fullcalendar/fullcalendar.js'></script>
+    <script src="~/Scripts/fullcalendar/locale/tr.js"></script>
+    <script src="~/Scripts/script-custom-calendar.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.1/build/alertify.min.js"></script>
+}

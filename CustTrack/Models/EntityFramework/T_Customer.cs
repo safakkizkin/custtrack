@@ -23,11 +23,11 @@ namespace CustTrack.Models.EntityFramework
         public string customer_phone { get; set; }
         public string customer_mail { get; set; }
         public string customer_company_name { get; set; }
+        public int customer_city_id { get; set; }
+        public int customer_district_id { get; set; }
         public string customer_post_code { get; set; }
         public string customer_tax_number { get; set; }
         public string customer_tax_administration { get; set; }
         public string customer_fax { get; set; }
-        public int customer_city_id { get; set; }
-        public int customer_district_id { get; set; }
     }
 }
