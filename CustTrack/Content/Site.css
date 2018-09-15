@@ -22,3 +22,9 @@ select,
 textarea {
     max-width: 280px;
 }
+
+@media (max-width: 1000px) {
+    .navbar-collapse.collapse:not(.in) {
+        display: none !important;
+    }
+}

@@ -4,10 +4,10 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="de8915a1745341418fa40a2ea4ce90d8" Name="Diagram1">
+      <Diagram DiagramId="03b6c7f338464c618563d8cacc784719" Name="Diagram1">
         <EntityTypeShape EntityType="SalesManContextModel.T_Admin" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SalesManContextModel.T_Appointment" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SalesManContextModel.T_AppointmentType" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SalesManContextModel.T_AppointmentColor" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SalesManContextModel.T_Authority" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SalesManContextModel.T_City" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SalesManContextModel.T_Customer" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />

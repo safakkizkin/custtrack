@@ -12,9 +12,9 @@ namespace CustTrack.Models.EntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class T_AppointmentType
+    public partial class T_AppointmentColor
     {
-        public int appointment_type_id { get; set; }
-        public string appointment_type_name { get; set; }
+        public string appointment_color_value { get; set; }
+        public string appointment_color_name { get; set; }
     }
 }

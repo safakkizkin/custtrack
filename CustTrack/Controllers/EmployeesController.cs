@@ -1,5 +1,6 @@
 ﻿using CustTrack.Models;
 using CustTrack.Models.EntityFramework;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -113,33 +114,24 @@ namespace CustTrack.Controllers
                         {
                             updateemployeemodel._Employee.department_id = int.Parse(form["DropDownListDepartmants"].ToString());
                             updateemployeemodel._Employee.employee_authority_id = int.Parse(form["DropDownListAuthorities"].ToString());
-
                             updateemployeemodel._Employee.employee_password = hash.Hashit(updateemployeemodel._Employee.employee_password);
-
-                            db.T_Employee.Add(updateemployeemodel._Employee);
                         }
                         else
                         {
-                            if (db.T_Employee.Find(updateemployeemodel._Employee.employee_id) == null)
+                            if (updateemployeemodel._Employee.employee_password == null)
                             {
-                                return HttpNotFound();
+                                updateemployeemodel._Employee.employee_password = db.T_Employee.Find(updateemployeemodel._Employee.employee_id).employee_password;
+                            }
+                            else
+                            {
+                                updateemployeemodel._Employee.employee_password = hash.Hashit(updateemployeemodel._Employee.employee_password);
                             }
 
-                            var dp_id = db.T_Employee.Find(updateemployeemodel._Employee.employee_id).department_id;
-                            var ea_id = db.T_Employee.Find(updateemployeemodel._Employee.employee_id).employee_authority_id;
-
-                            db.T_Employee.Find(updateemployeemodel._Employee.employee_id).employee_mail = updateemployeemodel._Employee.employee_mail;
-                            db.T_Employee.Find(updateemployeemodel._Employee.employee_id).employee_name = updateemployeemodel._Employee.employee_name;
-                            db.T_Employee.Find(updateemployeemodel._Employee.employee_id).employee_phone = updateemployeemodel._Employee.employee_phone;
-                            db.T_Employee.Find(updateemployeemodel._Employee.employee_id).employee_photo = updateemployeemodel._Employee.employee_photo;
-                            db.T_Employee.Find(updateemployeemodel._Employee.employee_id).employee_surname = updateemployeemodel._Employee.employee_surname;
-                            db.T_Employee.Find(updateemployeemodel._Employee.employee_id).employee_username = updateemployeemodel._Employee.employee_username;
-                            
-                            db.T_Employee.Find(updateemployeemodel._Employee.employee_id).employee_password = hash.Hashit(updateemployeemodel._Employee.employee_password);
-
-                            db.T_Employee.Find(updateemployeemodel._Employee.employee_id).department_id = form["DropDownListDepartmants"].ToString() == "" ? dp_id : int.Parse(form["DropDownListDepartmants"]);
-                            db.T_Employee.Find(updateemployeemodel._Employee.employee_id).employee_authority_id = form["DropDownListAuthorities"].ToString() == "" ? ea_id : int.Parse(form["DropDownListAuthorities"]);
+                            db.T_Employee.Find(updateemployeemodel._Employee.employee_id).department_id = form["DropDownListDepartmants"].ToString() == "" ? db.T_Employee.Find(updateemployeemodel._Employee.employee_id).department_id : int.Parse(form["DropDownListDepartmants"]);
+                            db.T_Employee.Find(updateemployeemodel._Employee.employee_id).employee_authority_id = form["DropDownListAuthorities"].ToString() == "" ? db.T_Employee.Find(updateemployeemodel._Employee.employee_id).employee_authority_id : int.Parse(form["DropDownListAuthorities"]);
                         }
+
+                        db.T_Employee.AddOrUpdate(updateemployeemodel._Employee);
                         break;
                     }
             }

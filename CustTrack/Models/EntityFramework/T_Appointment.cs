@@ -17,10 +17,9 @@ namespace CustTrack.Models.EntityFramework
         public int appointment_id { get; set; }
         public int customer_id { get; set; }
         public int employee_id { get; set; }
-        public int appointment_type_id { get; set; }
         public System.DateTime appointment_start_date { get; set; }
         public System.DateTime appointment_end_date { get; set; }
-        public string appointment_color { get; set; }
+        public string appointment_color_value { get; set; }
         public string appointment_before_note { get; set; }
         public string appointment_after_note { get; set; }
         public bool is_done { get; set; }

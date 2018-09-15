@@ -1,6 +1,7 @@
 ﻿using CustTrack.Models;
 using CustTrack.Models.EntityFramework;
 using System;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
@@ -89,40 +90,18 @@ namespace CustTrack.Controllers
                     }
                 default:
                     {
+                        
                         if (_cus._Cust.customer_id == 0)
                         {
                             _cus._Cust.customer_city_id = int.Parse(form["DropDownListCities"]);
                             _cus._Cust.customer_district_id = int.Parse(form["DropDownListDistricts"]);
-
-                            db.T_Customer.Add(_cus._Cust);
                         }
                         else
                         {
-                            if (db.T_Customer.Find(_cus._Cust.customer_id) == null)
-                            {
-                                return HttpNotFound();
-                            }
-
-                            var cy_id = db.T_Customer.Find(_cus._Cust.customer_id).customer_city_id;
-                            var dt_id = db.T_Customer.Find(_cus._Cust.customer_id).customer_district_id;
-
-                            db.T_Customer.Find(_cus._Cust.customer_id).customer_authorized_1 = _cus._Cust.customer_authorized_1;
-                            db.T_Customer.Find(_cus._Cust.customer_id).customer_authorized_2 = _cus._Cust.customer_authorized_2;
-                            db.T_Customer.Find(_cus._Cust.customer_id).customer_authorized_3 = _cus._Cust.customer_authorized_3;
-                            db.T_Customer.Find(_cus._Cust.customer_id).customer_sector = _cus._Cust.customer_sector;
-                            db.T_Customer.Find(_cus._Cust.customer_id).customer_area = _cus._Cust.customer_area;
-                            db.T_Customer.Find(_cus._Cust.customer_id).customer_phone = _cus._Cust.customer_phone;
-                            db.T_Customer.Find(_cus._Cust.customer_id).customer_mail = _cus._Cust.customer_mail;
-                            db.T_Customer.Find(_cus._Cust.customer_id).customer_company_name = _cus._Cust.customer_company_name;
-                            db.T_Customer.Find(_cus._Cust.customer_id).customer_city_id = form["DropDownListCities"].ToString() == "" ? cy_id : int.Parse(form["DropDownListCities"]);
-                            db.T_Customer.Find(_cus._Cust.customer_id).customer_district_id =form["DropDownListDistricts"].ToString() == "" ? dt_id : int.Parse(form["DropDownListDistricts"]);
-                            db.T_Customer.Find(_cus._Cust.customer_id).customer_post_code = _cus._Cust.customer_post_code;
-                            db.T_Customer.Find(_cus._Cust.customer_id).customer_tax_number = _cus._Cust.customer_tax_number;
-                            db.T_Customer.Find(_cus._Cust.customer_id).customer_tax_administration = _cus._Cust.customer_tax_administration;
-                            db.T_Customer.Find(_cus._Cust.customer_id).customer_fax = _cus._Cust.customer_fax;
-                            
-                            
+                            db.T_Customer.Find(_cus._Cust.customer_id).customer_city_id = form["DropDownListCities"].ToString() == "" ? db.T_Customer.Find(_cus._Cust.customer_id).customer_city_id : int.Parse(form["DropDownListCities"]);
+                            db.T_Customer.Find(_cus._Cust.customer_id).customer_district_id =form["DropDownListDistricts"].ToString() == "" ? db.T_Customer.Find(_cus._Cust.customer_id).customer_district_id : int.Parse(form["DropDownListDistricts"]);
                         }
+                        db.T_Customer.AddOrUpdate(_cus._Cust);
                         break;
                     }
             }

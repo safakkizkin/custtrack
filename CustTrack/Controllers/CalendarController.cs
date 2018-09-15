@@ -2,11 +2,9 @@
 using CustTrack.Models.EntityFramework;
 using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Data.Entity.Migrations;
 using System.Linq;
-using System.Reflection;
 using System.Web.Mvc;
-using System.Web.Script.Serialization;
 
 namespace CustTrack.Controllers
 {
@@ -14,13 +12,12 @@ namespace CustTrack.Controllers
     {
         SalesManContextEntities db = new SalesManContextEntities();
 
-        private DateTime sd, ed;
+        private static DateTime sd, ed;
 
         #region Index method  
         
         public ActionResult Index()
         {
-            // Info.  
             return View();
         }
 
@@ -28,13 +25,37 @@ namespace CustTrack.Controllers
         {
             if(id == 0)
             {
-
+                var t_ = new AppointmentModel
+                {
+                    _Appointment = new T_Appointment()
+                    {
+                        appointment_start_date = sd,
+                        appointment_end_date = ed,
+                        employee_id = db.T_Employee.First(x => x.employee_username.Equals(User.Identity.Name)).employee_id,
+                        appointment_before_note = "Randevu öncesi not",
+                        appointment_after_note = "Randevu sonrası not"
+                    },
+                    _Customers = db.T_Customer.ToList(),
+                    _AppointmentTypes = db.T_AppointmentColor.ToList()
+                };
+                return View(t_);
             }
-            return View();
+            else
+            {
+                var t_ = new AppointmentModel
+                {
+                    _Appointment = db.T_Appointment.Find(id),
+                    _Customers = db.T_Customer.ToList(),
+                    _AppointmentTypes = db.T_AppointmentColor.ToList()
+                };
+                return View(t_);
+            }
         }
 
-        #endregion 
-        
+        #endregion
+
+        #region Reaching Values
+
         public ActionResult GetCalendarData()
         {
             JsonResult result = new JsonResult();
@@ -56,6 +77,29 @@ namespace CustTrack.Controllers
             sd = DateTime.Parse(startDate);
             ed = DateTime.Parse(endDate);
             return Json(true);
+        }
+
+        #endregion
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(AppointmentModel appointmentmodel, FormCollection form, string submit)
+        {
+            if (appointmentmodel._Appointment.appointment_id== 0)
+            {
+                appointmentmodel._Appointment.appointment_color_value = form["DropDownListColors"].ToString();
+                appointmentmodel._Appointment.customer_id = int.Parse(form["DropDownListCustomers"].ToString());
+            }
+            else
+            {
+                appointmentmodel._Appointment.appointment_color_value = form["DropDownListColors"].ToString();
+                appointmentmodel._Appointment.customer_id = form["DropDownListCustomers"].ToString() == "" ? db.T_Appointment.Find(appointmentmodel._Appointment.appointment_id).customer_id : int.Parse(form["DropDownListCustomers"]);
+            }
+            
+
+            db.T_Appointment.AddOrUpdate(appointmentmodel._Appointment);
+            db.SaveChanges();
+            return RedirectToAction("Index", "Calendar");
         }
     }
 }

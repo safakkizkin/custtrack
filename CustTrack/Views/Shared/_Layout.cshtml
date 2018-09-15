@@ -4,13 +4,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - CustTrack</title>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.1/build/css/alertify.min.css" />
+    
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/bootstrap.css")
-    @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
     @Html.Partial("_layoutRender")
-    
+
 
     <div class="container body-content">
         @RenderBody()
@@ -19,9 +20,9 @@
             <p>&copy; @DateTime.Now.Year - CustTrack</p>
         </footer>
     </div>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-3.3.1.min.js"></script>
+    @Scripts.Render("~/Scripts/bootstrap.js")
     @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -3287,12 +3287,12 @@
                 case 3:
                     message = _title;
                     onok = _message;
-                    oncancel = _onok;
+                    oncancel = 'Tamam';
                     break;
                 case 4:
                     title = _title;
                     message = _message;
-                    onok = _onok;
+                    onok = 'Tamam';
                     oncancel = _oncancel;
                     break;
                 }

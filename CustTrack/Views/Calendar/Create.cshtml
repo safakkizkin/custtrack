@@ -1,8 +1,82 @@
-﻿
+﻿@model CustTrack.Models.AppointmentModel
+
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Create</h2>
+<div class="container">
+    <br />
+    @using (Html.BeginForm("Create", "Calendar", FormMethod.Post))
+    {
+        <h4 align="center">Yeni Randevu</h4>
+        <hr />
+        @Html.AntiForgeryToken()
+        if (Model._Appointment.appointment_id == 0)
+        {
+            <div class="modal-body" align="center">
+                <p>Randevu Başlangıç @Html.TextBoxFor(m => m._Appointment.appointment_start_date, new { @class = "form-control" })</p>
+                <p>Randevu Bitiş @Html.TextBoxFor(m => m._Appointment.appointment_end_date, new { @class = "form-control" })</p>
+                <p>Randevu Öncesi Not @Html.TextBoxFor(m => m._Appointment.appointment_before_note, new { @class = "form-control" })</p>
+                <p>Randevu Sonrası Not @Html.TextBoxFor(m => m._Appointment.appointment_after_note, new { @class = "form-control" })</p>
+                <p>@Html.DropDownList("DropDownListCustomers", new SelectList(Model._Customers, "customer_id", "customer_company_name"), "Müşteri", new { @class = "form-control" })</p>
+                <p>
+                    <select id="DropDownListColors" name="DropDownListColors" class="custom-select">
+                        <option value="4286f4">Mavi</option>
+                        <option value="e20b0b">Kırmızı</option>
+                        <option value="4ce238">Yeşil</option>
+                        <option value="e238ba">Pembe</option>
+                        <option value="a038e2">Mor</option>
+                        <option value="19d8ff">Turkuaz</option>
+                        <option value="ffff00">Sarı</option>
+                    </select>
+                </p>
+                <p>Randevu yapıldı mı? @Html.CheckBoxFor(m => m._Appointment.is_done, new { @class = "form-control" })</p>
+                <p>Ekstra servis var mı? @Html.CheckBoxFor(m => m._Appointment.is_additional_service, new { @class = "form-control" })</p>
+                <p>Teklif verildi mi? @Html.CheckBoxFor(m => m._Appointment.is_offered, new { @class = "form-control" })</p>
+                <p>Sipariş verildi mi? @Html.CheckBoxFor(m => m._Appointment.is_ordered, new { @class = "form-control" })</p>
+                <p>Ödeme yapıldı mı? @Html.CheckBoxFor(m => m._Appointment.is_paid, new { @class = "form-control" })</p>
+                <p>Tekrar randevu ayarlandı mı? @Html.CheckBoxFor(m => m._Appointment.is_reappointment, new { @class = "form-control" })</p>
+                <p>Teknik bir sorun var mı? @Html.CheckBoxFor(m => m._Appointment.is_technical_problem, new { @class = "form-control" })</p>
+            </div>
+        }
+        else
+        {
+            <div class="modal-body" align="center">
+                <p>Randevu Başlangıç @Html.TextBoxFor(m => m._Appointment.appointment_start_date, new { @class = "form-control" })</p>
+                <p>Randevu Bitiş @Html.TextBoxFor(m => m._Appointment.appointment_end_date, new { @class = "form-control" })</p>
+                <p>Randevu Öncesi Not @Html.TextBoxFor(m => m._Appointment.appointment_before_note, new { @class = "form-control" })</p>
+                <p>Randevu Sonrası Not @Html.TextBoxFor(m => m._Appointment.appointment_after_note, new { @class = "form-control" })</p>
+                <p>@Html.DropDownList("DropDownListCustomers", new SelectList(Model._Customers.Where(x => x.customer_id != Model._Appointment.customer_id), "customer_id", "customer_company_name"), Model._Customers.First(x => x.customer_id == Model._Appointment.customer_id).customer_company_name, new { @class = "form-control" })</p>
+                <p>
+                    <select id="DropDownListColors" name="DropDownListColors" class="custom-select">
+                        @foreach (var item in @Model._AppointmentTypes)
+                        {
+                            if (item.appointment_color_value == Model._Appointment.appointment_color_value)
+                            {
+                                <option value="@item.appointment_color_value" selected>@item.appointment_color_name</option>
+                            }
+                            else
+                            {
+                                <option value="@item.appointment_color_value">@item.appointment_color_name</option>
+                            }
+                        }
+                    </select>
+                </p>
+                <p>Randevu yapıldı mı? @Html.CheckBoxFor(m => m._Appointment.is_done, new { @class = "form-control" })</p>
+                <p>Ekstra servis var mı? @Html.CheckBoxFor(m => m._Appointment.is_additional_service, new { @class = "form-control" })</p>
+                <p>Teklif verildi mi? @Html.CheckBoxFor(m => m._Appointment.is_offered, new { @class = "form-control" })</p>
+                <p>Sipariş verildi mi? @Html.CheckBoxFor(m => m._Appointment.is_ordered, new { @class = "form-control" })</p>
+                <p>Ödeme yapıldı mı? @Html.CheckBoxFor(m => m._Appointment.is_paid, new { @class = "form-control" })</p>
+                <p>Tekrar randevu ayarlandı mı? @Html.CheckBoxFor(m => m._Appointment.is_reappointment, new { @class = "form-control" })</p>
+                <p>Teknik bir sorun var mı? @Html.CheckBoxFor(m => m._Appointment.is_technical_problem, new { @class = "form-control" })</p>
+            </div>
+        }
+        <div class="modal-footer">
+            @Html.HiddenFor(m => m._Appointment.appointment_id)
+            @Html.HiddenFor(m => m._Appointment.employee_id)
+            <button type="reset" class="btn btn-outline-secondary"> Temizle </button>
+            <input name="submit" class="btn btn-outline-warning" type="submit" id="save" value="Kaydet" />
+        </div>
+    }
+</div>
 

@@ -1,5 +1,6 @@
 ﻿using CustTrack.Models;
 using CustTrack.Models.EntityFramework;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -66,22 +67,7 @@ namespace CustTrack.Controllers
                     }
                 default:
                     {
-                        // New Departmant
-                        if (dep._Department.department_id == 0)
-                        {
-                            db.T_Department.Add(dep._Department);
-                        }
-                        // Update Departman
-                        else
-                        {
-                            var dep_update = db.T_Department
-                                               .Find(dep._Department.department_id);
-                            if (dep_update == null)
-                            {
-                                return HttpNotFound();
-                            }
-                            dep_update.department_name = dep._Department.department_name;
-                        }
+                        db.T_Department.AddOrUpdate(dep._Department);
                         break;
                     }
             }

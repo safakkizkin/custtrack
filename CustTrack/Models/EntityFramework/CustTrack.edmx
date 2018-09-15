@@ -20,10 +20,9 @@
           <Property Name="appointment_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="customer_id" Type="int" Nullable="false" />
           <Property Name="employee_id" Type="int" Nullable="false" />
-          <Property Name="appointment_type_id" Type="int" Nullable="false" />
           <Property Name="appointment_start_date" Type="datetime" Nullable="false" />
           <Property Name="appointment_end_date" Type="datetime" Nullable="false" />
-          <Property Name="appointment_color" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="appointment_color_value" Type="nvarchar" MaxLength="7" Nullable="false" />
           <Property Name="appointment_before_note" Type="nvarchar(max)" />
           <Property Name="appointment_after_note" Type="nvarchar(max)" />
           <Property Name="is_done" Type="bit" Nullable="false" />
@@ -34,12 +33,12 @@
           <Property Name="is_technical_problem" Type="bit" Nullable="false" />
           <Property Name="is_additional_service" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="T_AppointmentType">
+        <EntityType Name="T_AppointmentColor">
           <Key>
-            <PropertyRef Name="appointment_type_id" />
+            <PropertyRef Name="appointment_color_value" />
           </Key>
-          <Property Name="appointment_type_id" Type="int" Nullable="false" />
-          <Property Name="appointment_type_name" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="appointment_color_value" Type="nvarchar" MaxLength="7" Nullable="false" />
+          <Property Name="appointment_color_name" Type="nvarchar" MaxLength="30" Nullable="false" />
         </EntityType>
         <EntityType Name="T_Authority">
           <Key>
@@ -109,7 +108,7 @@
         <EntityContainer Name="SalesManContextModelStoreContainer">
           <EntitySet Name="T_Admin" EntityType="Self.T_Admin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_Appointment" EntityType="Self.T_Appointment" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="T_AppointmentType" EntityType="Self.T_AppointmentType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_AppointmentColor" EntityType="Self.T_AppointmentColor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_Authority" EntityType="Self.T_Authority" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_City" EntityType="Self.T_City" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_Customer" EntityType="Self.T_Customer" Schema="dbo" store:Type="Tables" />
@@ -137,10 +136,9 @@
           <Property Name="appointment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="customer_id" Type="Int32" Nullable="false" />
           <Property Name="employee_id" Type="Int32" Nullable="false" />
-          <Property Name="appointment_type_id" Type="Int32" Nullable="false" />
           <Property Name="appointment_start_date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="appointment_end_date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="appointment_color" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="appointment_color_value" Type="String" MaxLength="7" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="appointment_before_note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="appointment_after_note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="is_done" Type="Boolean" Nullable="false" />
@@ -151,12 +149,12 @@
           <Property Name="is_technical_problem" Type="Boolean" Nullable="false" />
           <Property Name="is_additional_service" Type="Boolean" Nullable="false" />
         </EntityType>
-        <EntityType Name="T_AppointmentType">
+        <EntityType Name="T_AppointmentColor">
           <Key>
-            <PropertyRef Name="appointment_type_id" />
+            <PropertyRef Name="appointment_color_value" />
           </Key>
-          <Property Name="appointment_type_id" Type="Int32" Nullable="false" />
-          <Property Name="appointment_type_name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="appointment_color_value" Type="String" MaxLength="7" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="appointment_color_name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="T_Authority">
           <Key>
@@ -226,7 +224,7 @@
         <EntityContainer Name="SalesManContextEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="T_Admin" EntityType="Self.T_Admin" />
           <EntitySet Name="T_Appointment" EntityType="Self.T_Appointment" />
-          <EntitySet Name="T_AppointmentType" EntityType="Self.T_AppointmentType" />
+          <EntitySet Name="T_AppointmentColor" EntityType="Self.T_AppointmentColor" />
           <EntitySet Name="T_Authority" EntityType="Self.T_Authority" />
           <EntitySet Name="T_City" EntityType="Self.T_City" />
           <EntitySet Name="T_Customer" EntityType="Self.T_Customer" />
@@ -255,10 +253,9 @@
                 <ScalarProperty Name="appointment_id" ColumnName="appointment_id" />
                 <ScalarProperty Name="customer_id" ColumnName="customer_id" />
                 <ScalarProperty Name="employee_id" ColumnName="employee_id" />
-                <ScalarProperty Name="appointment_type_id" ColumnName="appointment_type_id" />
                 <ScalarProperty Name="appointment_start_date" ColumnName="appointment_start_date" />
                 <ScalarProperty Name="appointment_end_date" ColumnName="appointment_end_date" />
-                <ScalarProperty Name="appointment_color" ColumnName="appointment_color" />
+                <ScalarProperty Name="appointment_color_value" ColumnName="appointment_color_value" />
                 <ScalarProperty Name="appointment_before_note" ColumnName="appointment_before_note" />
                 <ScalarProperty Name="appointment_after_note" ColumnName="appointment_after_note" />
                 <ScalarProperty Name="is_done" ColumnName="is_done" />
@@ -271,11 +268,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="T_AppointmentType">
-            <EntityTypeMapping TypeName="SalesManContextModel.T_AppointmentType">
-              <MappingFragment StoreEntitySet="T_AppointmentType">
-                <ScalarProperty Name="appointment_type_id" ColumnName="appointment_type_id" />
-                <ScalarProperty Name="appointment_type_name" ColumnName="appointment_type_name" />
+          <EntitySetMapping Name="T_AppointmentColor">
+            <EntityTypeMapping TypeName="SalesManContextModel.T_AppointmentColor">
+              <MappingFragment StoreEntitySet="T_AppointmentColor">
+                <ScalarProperty Name="appointment_color_value" ColumnName="appointment_color_value" />
+                <ScalarProperty Name="appointment_color_name" ColumnName="appointment_color_name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
