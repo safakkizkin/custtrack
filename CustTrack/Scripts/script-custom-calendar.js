@@ -41,7 +41,7 @@
                             });
                     },
                     function () {
-                        alertify.error('Cancel');
+                        alertify.error('İptal edildi.');
                     });
             }
             else {
